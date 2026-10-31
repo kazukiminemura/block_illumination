@@ -1,0 +1,67 @@
+LTspice 26.1.1 for Windows
+Circuit: C:\Users\minemura\projects\block_illumination\simulation\ltspice\full_circuit.net
+Start Time: Sat Oct 31 20:55:40 2026
+Options:plotwinsize=0
+solver = Normal
+Maximum thread count: 12
+tnom = 27
+temp = 27
+method = trap
+Direct Newton iteration succeeded in finding operating point.
+Total elapsed time: 29.325 seconds.
+Total iterations: 216537
+
+Files loaded:
+C:\Users\minemura\projects\block_illumination\simulation\ltspice\full_circuit.net
+C:\Users\minemura\AppData\Local\LTspice\lib\cmp\standard.mos
+C:\Users\minemura\projects\block_illumination\simulation\ltspice\full_models.lib
+
+supply_min: MIN(V(5V))=4.92675113678 FROM 0.0005 TO 0.0158
+row0_ctl: V(ROW_CTL_0)=5 at 0.0005
+row1_ctl: V(ROW_CTL_1)=5 at 0.0015
+row2_ctl: V(ROW_CTL_2)=5 at 0.0025
+row3_ctl: V(ROW_CTL_3)=5 at 0.0035
+row4_ctl: V(ROW_CTL_4)=5 at 0.0045
+row5_ctl: V(ROW_CTL_5)=5 at 0.0055
+row6_ctl: V(ROW_CTL_6)=5 at 0.0065
+row7_ctl: V(ROW_CTL_7)=5 at 0.0075
+row8_ctl: V(ROW_CTL_8)=5 at 0.0085
+row9_ctl: V(ROW_CTL_9)=5 at 0.0095
+row10_ctl: V(ROW_CTL_10)=5 at 0.0105
+row11_ctl: V(ROW_CTL_11)=5 at 0.0115
+row12_ctl: V(ROW_CTL_12)=5 at 0.0125
+row13_ctl: V(ROW_CTL_13)=5 at 0.0135
+row14_ctl: V(ROW_CTL_14)=5 at 0.0145
+row15_ctl: V(ROW_CTL_15)=5 at 0.0155
+row0_current: I(VLED_SENSE)=0.733226788851 at 0.0005
+row1_current: I(VLED_SENSE)=0.733165695418 at 0.0015
+row2_current: I(VLED_SENSE)=0.733352444816 at 0.0025
+row3_current: I(VLED_SENSE)=0.733172390199 at 0.0035
+row4_current: I(VLED_SENSE)=0.733041343132 at 0.0045
+row5_current: I(VLED_SENSE)=0.733062432963 at 0.0055
+row6_current: I(VLED_SENSE)=0.733172665646 at 0.0065
+row7_current: I(VLED_SENSE)=0.7332053379 at 0.0075
+row8_current: I(VLED_SENSE)=0.733320656604 at 0.0085
+row9_current: I(VLED_SENSE)=0.733353455916 at 0.0095
+row10_current: I(VLED_SENSE)=0.733127606388 at 0.0105
+row11_current: I(VLED_SENSE)=0.732916342265 at 0.0115
+row12_current: I(VLED_SENSE)=0.732734726453 at 0.0125
+row13_current: I(VLED_SENSE)=0.732602445235 at 0.0135
+row14_current: I(VLED_SENSE)=0.7325321859 at 0.0145
+row15_current: I(VLED_SENSE)=0.732785362248 at 0.0155
+row0_count: (if(V(ROW_CTL_0)>2.5,1,0)+if(V(ROW_CTL_1)>2.5,1,0)+if(V(ROW_CTL_2)>2.5,1,0)+if(V(ROW_CTL_3)>2.5,1,0)+if(V(ROW_CTL_4)>2.5,1,0)+if(V(ROW_CTL_5)>2.5,1,0)+if(V(ROW_CTL_6)>2.5,1,0)+if(V(ROW_CTL_7)>2.5,1,0)+if(V(ROW_CTL_8)>2.5,1,0)+if(V(ROW_CTL_9)>2.5,1,0)+if(V(ROW_CTL_10)>2.5,1,0)+if(V(ROW_CTL_11)>2.5,1,0)+if(V(ROW_CTL_12)>2.5,1,0)+if(V(ROW_CTL_13)>2.5,1,0)+if(V(ROW_CTL_14)>2.5,1,0)+if(V(ROW_CTL_15)>2.5,1,0))=1 at 0.0005
+row1_count: (if(V(ROW_CTL_0)>2.5,1,0)+if(V(ROW_CTL_1)>2.5,1,0)+if(V(ROW_CTL_2)>2.5,1,0)+if(V(ROW_CTL_3)>2.5,1,0)+if(V(ROW_CTL_4)>2.5,1,0)+if(V(ROW_CTL_5)>2.5,1,0)+if(V(ROW_CTL_6)>2.5,1,0)+if(V(ROW_CTL_7)>2.5,1,0)+if(V(ROW_CTL_8)>2.5,1,0)+if(V(ROW_CTL_9)>2.5,1,0)+if(V(ROW_CTL_10)>2.5,1,0)+if(V(ROW_CTL_11)>2.5,1,0)+if(V(ROW_CTL_12)>2.5,1,0)+if(V(ROW_CTL_13)>2.5,1,0)+if(V(ROW_CTL_14)>2.5,1,0)+if(V(ROW_CTL_15)>2.5,1,0))=1 at 0.0015
+row2_count: (if(V(ROW_CTL_0)>2.5,1,0)+if(V(ROW_CTL_1)>2.5,1,0)+if(V(ROW_CTL_2)>2.5,1,0)+if(V(ROW_CTL_3)>2.5,1,0)+if(V(ROW_CTL_4)>2.5,1,0)+if(V(ROW_CTL_5)>2.5,1,0)+if(V(ROW_CTL_6)>2.5,1,0)+if(V(ROW_CTL_7)>2.5,1,0)+if(V(ROW_CTL_8)>2.5,1,0)+if(V(ROW_CTL_9)>2.5,1,0)+if(V(ROW_CTL_10)>2.5,1,0)+if(V(ROW_CTL_11)>2.5,1,0)+if(V(ROW_CTL_12)>2.5,1,0)+if(V(ROW_CTL_13)>2.5,1,0)+if(V(ROW_CTL_14)>2.5,1,0)+if(V(ROW_CTL_15)>2.5,1,0))=1 at 0.0025
+row3_count: (if(V(ROW_CTL_0)>2.5,1,0)+if(V(ROW_CTL_1)>2.5,1,0)+if(V(ROW_CTL_2)>2.5,1,0)+if(V(ROW_CTL_3)>2.5,1,0)+if(V(ROW_CTL_4)>2.5,1,0)+if(V(ROW_CTL_5)>2.5,1,0)+if(V(ROW_CTL_6)>2.5,1,0)+if(V(ROW_CTL_7)>2.5,1,0)+if(V(ROW_CTL_8)>2.5,1,0)+if(V(ROW_CTL_9)>2.5,1,0)+if(V(ROW_CTL_10)>2.5,1,0)+if(V(ROW_CTL_11)>2.5,1,0)+if(V(ROW_CTL_12)>2.5,1,0)+if(V(ROW_CTL_13)>2.5,1,0)+if(V(ROW_CTL_14)>2.5,1,0)+if(V(ROW_CTL_15)>2.5,1,0))=1 at 0.0035
+row4_count: (if(V(ROW_CTL_0)>2.5,1,0)+if(V(ROW_CTL_1)>2.5,1,0)+if(V(ROW_CTL_2)>2.5,1,0)+if(V(ROW_CTL_3)>2.5,1,0)+if(V(ROW_CTL_4)>2.5,1,0)+if(V(ROW_CTL_5)>2.5,1,0)+if(V(ROW_CTL_6)>2.5,1,0)+if(V(ROW_CTL_7)>2.5,1,0)+if(V(ROW_CTL_8)>2.5,1,0)+if(V(ROW_CTL_9)>2.5,1,0)+if(V(ROW_CTL_10)>2.5,1,0)+if(V(ROW_CTL_11)>2.5,1,0)+if(V(ROW_CTL_12)>2.5,1,0)+if(V(ROW_CTL_13)>2.5,1,0)+if(V(ROW_CTL_14)>2.5,1,0)+if(V(ROW_CTL_15)>2.5,1,0))=1 at 0.0045
+row5_count: (if(V(ROW_CTL_0)>2.5,1,0)+if(V(ROW_CTL_1)>2.5,1,0)+if(V(ROW_CTL_2)>2.5,1,0)+if(V(ROW_CTL_3)>2.5,1,0)+if(V(ROW_CTL_4)>2.5,1,0)+if(V(ROW_CTL_5)>2.5,1,0)+if(V(ROW_CTL_6)>2.5,1,0)+if(V(ROW_CTL_7)>2.5,1,0)+if(V(ROW_CTL_8)>2.5,1,0)+if(V(ROW_CTL_9)>2.5,1,0)+if(V(ROW_CTL_10)>2.5,1,0)+if(V(ROW_CTL_11)>2.5,1,0)+if(V(ROW_CTL_12)>2.5,1,0)+if(V(ROW_CTL_13)>2.5,1,0)+if(V(ROW_CTL_14)>2.5,1,0)+if(V(ROW_CTL_15)>2.5,1,0))=1 at 0.0055
+row6_count: (if(V(ROW_CTL_0)>2.5,1,0)+if(V(ROW_CTL_1)>2.5,1,0)+if(V(ROW_CTL_2)>2.5,1,0)+if(V(ROW_CTL_3)>2.5,1,0)+if(V(ROW_CTL_4)>2.5,1,0)+if(V(ROW_CTL_5)>2.5,1,0)+if(V(ROW_CTL_6)>2.5,1,0)+if(V(ROW_CTL_7)>2.5,1,0)+if(V(ROW_CTL_8)>2.5,1,0)+if(V(ROW_CTL_9)>2.5,1,0)+if(V(ROW_CTL_10)>2.5,1,0)+if(V(ROW_CTL_11)>2.5,1,0)+if(V(ROW_CTL_12)>2.5,1,0)+if(V(ROW_CTL_13)>2.5,1,0)+if(V(ROW_CTL_14)>2.5,1,0)+if(V(ROW_CTL_15)>2.5,1,0))=1 at 0.0065
+row7_count: (if(V(ROW_CTL_0)>2.5,1,0)+if(V(ROW_CTL_1)>2.5,1,0)+if(V(ROW_CTL_2)>2.5,1,0)+if(V(ROW_CTL_3)>2.5,1,0)+if(V(ROW_CTL_4)>2.5,1,0)+if(V(ROW_CTL_5)>2.5,1,0)+if(V(ROW_CTL_6)>2.5,1,0)+if(V(ROW_CTL_7)>2.5,1,0)+if(V(ROW_CTL_8)>2.5,1,0)+if(V(ROW_CTL_9)>2.5,1,0)+if(V(ROW_CTL_10)>2.5,1,0)+if(V(ROW_CTL_11)>2.5,1,0)+if(V(ROW_CTL_12)>2.5,1,0)+if(V(ROW_CTL_13)>2.5,1,0)+if(V(ROW_CTL_14)>2.5,1,0)+if(V(ROW_CTL_15)>2.5,1,0))=1 at 0.0075
+row8_count: (if(V(ROW_CTL_0)>2.5,1,0)+if(V(ROW_CTL_1)>2.5,1,0)+if(V(ROW_CTL_2)>2.5,1,0)+if(V(ROW_CTL_3)>2.5,1,0)+if(V(ROW_CTL_4)>2.5,1,0)+if(V(ROW_CTL_5)>2.5,1,0)+if(V(ROW_CTL_6)>2.5,1,0)+if(V(ROW_CTL_7)>2.5,1,0)+if(V(ROW_CTL_8)>2.5,1,0)+if(V(ROW_CTL_9)>2.5,1,0)+if(V(ROW_CTL_10)>2.5,1,0)+if(V(ROW_CTL_11)>2.5,1,0)+if(V(ROW_CTL_12)>2.5,1,0)+if(V(ROW_CTL_13)>2.5,1,0)+if(V(ROW_CTL_14)>2.5,1,0)+if(V(ROW_CTL_15)>2.5,1,0))=1 at 0.0085
+row9_count: (if(V(ROW_CTL_0)>2.5,1,0)+if(V(ROW_CTL_1)>2.5,1,0)+if(V(ROW_CTL_2)>2.5,1,0)+if(V(ROW_CTL_3)>2.5,1,0)+if(V(ROW_CTL_4)>2.5,1,0)+if(V(ROW_CTL_5)>2.5,1,0)+if(V(ROW_CTL_6)>2.5,1,0)+if(V(ROW_CTL_7)>2.5,1,0)+if(V(ROW_CTL_8)>2.5,1,0)+if(V(ROW_CTL_9)>2.5,1,0)+if(V(ROW_CTL_10)>2.5,1,0)+if(V(ROW_CTL_11)>2.5,1,0)+if(V(ROW_CTL_12)>2.5,1,0)+if(V(ROW_CTL_13)>2.5,1,0)+if(V(ROW_CTL_14)>2.5,1,0)+if(V(ROW_CTL_15)>2.5,1,0))=1 at 0.0095
+row10_count: (if(V(ROW_CTL_0)>2.5,1,0)+if(V(ROW_CTL_1)>2.5,1,0)+if(V(ROW_CTL_2)>2.5,1,0)+if(V(ROW_CTL_3)>2.5,1,0)+if(V(ROW_CTL_4)>2.5,1,0)+if(V(ROW_CTL_5)>2.5,1,0)+if(V(ROW_CTL_6)>2.5,1,0)+if(V(ROW_CTL_7)>2.5,1,0)+if(V(ROW_CTL_8)>2.5,1,0)+if(V(ROW_CTL_9)>2.5,1,0)+if(V(ROW_CTL_10)>2.5,1,0)+if(V(ROW_CTL_11)>2.5,1,0)+if(V(ROW_CTL_12)>2.5,1,0)+if(V(ROW_CTL_13)>2.5,1,0)+if(V(ROW_CTL_14)>2.5,1,0)+if(V(ROW_CTL_15)>2.5,1,0))=1 at 0.0105
+row11_count: (if(V(ROW_CTL_0)>2.5,1,0)+if(V(ROW_CTL_1)>2.5,1,0)+if(V(ROW_CTL_2)>2.5,1,0)+if(V(ROW_CTL_3)>2.5,1,0)+if(V(ROW_CTL_4)>2.5,1,0)+if(V(ROW_CTL_5)>2.5,1,0)+if(V(ROW_CTL_6)>2.5,1,0)+if(V(ROW_CTL_7)>2.5,1,0)+if(V(ROW_CTL_8)>2.5,1,0)+if(V(ROW_CTL_9)>2.5,1,0)+if(V(ROW_CTL_10)>2.5,1,0)+if(V(ROW_CTL_11)>2.5,1,0)+if(V(ROW_CTL_12)>2.5,1,0)+if(V(ROW_CTL_13)>2.5,1,0)+if(V(ROW_CTL_14)>2.5,1,0)+if(V(ROW_CTL_15)>2.5,1,0))=1 at 0.0115
+row12_count: (if(V(ROW_CTL_0)>2.5,1,0)+if(V(ROW_CTL_1)>2.5,1,0)+if(V(ROW_CTL_2)>2.5,1,0)+if(V(ROW_CTL_3)>2.5,1,0)+if(V(ROW_CTL_4)>2.5,1,0)+if(V(ROW_CTL_5)>2.5,1,0)+if(V(ROW_CTL_6)>2.5,1,0)+if(V(ROW_CTL_7)>2.5,1,0)+if(V(ROW_CTL_8)>2.5,1,0)+if(V(ROW_CTL_9)>2.5,1,0)+if(V(ROW_CTL_10)>2.5,1,0)+if(V(ROW_CTL_11)>2.5,1,0)+if(V(ROW_CTL_12)>2.5,1,0)+if(V(ROW_CTL_13)>2.5,1,0)+if(V(ROW_CTL_14)>2.5,1,0)+if(V(ROW_CTL_15)>2.5,1,0))=1 at 0.0125
+row13_count: (if(V(ROW_CTL_0)>2.5,1,0)+if(V(ROW_CTL_1)>2.5,1,0)+if(V(ROW_CTL_2)>2.5,1,0)+if(V(ROW_CTL_3)>2.5,1,0)+if(V(ROW_CTL_4)>2.5,1,0)+if(V(ROW_CTL_5)>2.5,1,0)+if(V(ROW_CTL_6)>2.5,1,0)+if(V(ROW_CTL_7)>2.5,1,0)+if(V(ROW_CTL_8)>2.5,1,0)+if(V(ROW_CTL_9)>2.5,1,0)+if(V(ROW_CTL_10)>2.5,1,0)+if(V(ROW_CTL_11)>2.5,1,0)+if(V(ROW_CTL_12)>2.5,1,0)+if(V(ROW_CTL_13)>2.5,1,0)+if(V(ROW_CTL_14)>2.5,1,0)+if(V(ROW_CTL_15)>2.5,1,0))=1 at 0.0135
+row14_count: (if(V(ROW_CTL_0)>2.5,1,0)+if(V(ROW_CTL_1)>2.5,1,0)+if(V(ROW_CTL_2)>2.5,1,0)+if(V(ROW_CTL_3)>2.5,1,0)+if(V(ROW_CTL_4)>2.5,1,0)+if(V(ROW_CTL_5)>2.5,1,0)+if(V(ROW_CTL_6)>2.5,1,0)+if(V(ROW_CTL_7)>2.5,1,0)+if(V(ROW_CTL_8)>2.5,1,0)+if(V(ROW_CTL_9)>2.5,1,0)+if(V(ROW_CTL_10)>2.5,1,0)+if(V(ROW_CTL_11)>2.5,1,0)+if(V(ROW_CTL_12)>2.5,1,0)+if(V(ROW_CTL_13)>2.5,1,0)+if(V(ROW_CTL_14)>2.5,1,0)+if(V(ROW_CTL_15)>2.5,1,0))=1 at 0.0145
+row15_count: (if(V(ROW_CTL_0)>2.5,1,0)+if(V(ROW_CTL_1)>2.5,1,0)+if(V(ROW_CTL_2)>2.5,1,0)+if(V(ROW_CTL_3)>2.5,1,0)+if(V(ROW_CTL_4)>2.5,1,0)+if(V(ROW_CTL_5)>2.5,1,0)+if(V(ROW_CTL_6)>2.5,1,0)+if(V(ROW_CTL_7)>2.5,1,0)+if(V(ROW_CTL_8)>2.5,1,0)+if(V(ROW_CTL_9)>2.5,1,0)+if(V(ROW_CTL_10)>2.5,1,0)+if(V(ROW_CTL_11)>2.5,1,0)+if(V(ROW_CTL_12)>2.5,1,0)+if(V(ROW_CTL_13)>2.5,1,0)+if(V(ROW_CTL_14)>2.5,1,0)+if(V(ROW_CTL_15)>2.5,1,0))=1 at 0.0155
