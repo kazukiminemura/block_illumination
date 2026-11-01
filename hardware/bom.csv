@@ -1,0 +1,13 @@
+reference,quantity,part,notes
+"PICO","1","Raspberry Pi Pico 2 H","USB powered; external 5V must not connect to VBUS"
+"U_CPU U_GPU U_NPU","3","XD3914 DIP-18","Bar mode: pin9 to pin3"
+"LED_CPU LED_GPU LED_NPU","3","OSX10201-GYR1","20 pins; anodes1..10; cathodes20..11"
+"RF_*","3","4.7k 1% >=0.125W","PWM low-pass"
+"RPD_*","3","10k >=0.125W","GPIO pull-down during reset"
+"RSET_*","3","3.3k 1% >=0.125W","Pin7 to GND; internal ladder load also sets LED current"
+"CF_*","3","4.7uF X7R >=10V","Effective capacitance 2.2..6.8uF required over voltage/temperature"
+"CD_*","3","100nF X7R >=10V","Close to pin3-pin2"
+"CB_*","3","10uF >=10V","Close to each driver and LED supply; polarity if electrolytic"
+"CBULK","1","100uF >=10V","Supply entry; observe polarity"
+"J_PWR","1","2-pin keyed connector >=1A","Pin1 +5V; pin2 GND"
+"PSU","1","Regulated 5V +/-5% >=0.5A","Powers driver board only; Pico via USB"

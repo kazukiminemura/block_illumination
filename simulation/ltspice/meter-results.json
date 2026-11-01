@@ -1,0 +1,1326 @@
+{
+  "revision": "C",
+  "simulator": "LTspice 26.1.1 for Windows",
+  "scope": "Behavioral XD3914 bar-mode and assumed LED/GPIO models; calibrated references. Not vendor macro-model or hardware sign-off.",
+  "checks": 72,
+  "netlistParts": 67,
+  "netlistEvidence": "Previously validated netlist snapshot; circuit and log hashes unchanged",
+  "actualNetlist": [
+    [
+      "VDD",
+      "VIN",
+      "0",
+      "5"
+    ],
+    [
+      "RFEED",
+      "VIN",
+      "5V",
+      "0.1"
+    ],
+    [
+      "CBULK",
+      "5V",
+      "0",
+      "100Âµ",
+      "Rser=0.1"
+    ],
+    [
+      "VPWM_CPU",
+      "DRIVE_CPU",
+      "0",
+      "PULSE(0",
+      "{VGPIO}",
+      "100m",
+      "20n",
+      "20n",
+      "{DT0*50u}",
+      "50u)"
+    ],
+    [
+      "SIO_CPU",
+      "DRIVE_CPU",
+      "PWM_CPU",
+      "EN",
+      "0",
+      "GPIO_SW"
+    ],
+    [
+      "RPD_CPU",
+      "PWM_CPU",
+      "0",
+      "10k"
+    ],
+    [
+      "RF_CPU",
+      "PWM_CPU",
+      "SIG_CPU",
+      "{4700*RFAC}"
+    ],
+    [
+      "CF_CPU",
+      "SIG_CPU",
+      "0",
+      "{CFVAL}"
+    ],
+    [
+      "XÂ§XU_CPU",
+      "K_CPU_1_SINK",
+      "0",
+      "VCC_CPU",
+      "0",
+      "SIG_CPU",
+      "REF_CPU",
+      "REF_CPU",
+      "0",
+      "5V",
+      "K_CPU_10_SINK",
+      "K_CPU_9_SINK",
+      "K_CPU_8_SINK",
+      "K_CPU_7_SINK",
+      "K_CPU_6_SINK",
+      "K_CPU_5_SINK",
+      "K_CPU_4_SINK",
+      "K_CPU_3_SINK",
+      "K_CPU_2_SINK",
+      "XD3914",
+      "VREFVAL={VR0}",
+      "RLAD={RLADVAL}",
+      "ERR={THERR}",
+      "ISCALE={ISCALE}",
+      ";Â§pnba",
+      "1:OUT1)2:GND)3:V+)4:RLO)5:SIG)6:RHI)7:REF_OUT)8:REF_ADJ)9:MODE)10:OUT10)11:OUT9)12:OUT8)13:OUT7)14:OUT6)15:OUT5)16:OUT4)17:OUT3)18:OUT2"
+    ],
+    [
+      "VLOGIC_CPU",
+      "5V",
+      "VCC_CPU",
+      "0"
+    ],
+    [
+      "RSET_CPU",
+      "REF_CPU",
+      "0",
+      "{3300*RSETFAC}"
+    ],
+    [
+      "CD_CPU",
+      "5V",
+      "0",
+      "100n"
+    ],
+    [
+      "CB_CPU",
+      "5V",
+      "0",
+      "10Âµ",
+      "Rser=0.1"
+    ],
+    [
+      "XÂ§XLED_CPU",
+      "5V",
+      "5V",
+      "5V",
+      "5V",
+      "5V",
+      "5V",
+      "5V",
+      "5V",
+      "5V",
+      "5V",
+      "K_CPU_10",
+      "K_CPU_9",
+      "K_CPU_8",
+      "K_CPU_7",
+      "K_CPU_6",
+      "K_CPU_5",
+      "K_CPU_4",
+      "K_CPU_3",
+      "K_CPU_2",
+      "K_CPU_1",
+      "OSX10201_GYR1",
+      ";Â§pnba",
+      "1:A+)2:B+)3:C+)4:D+)5:E+)6:F+)7:G+)8:H+)9:I+)10:J+)11:J-)12:I-)13:H-)14:G-)15:F-)16:E-)17:D-)18:C-)19:B-)20:A-"
+    ],
+    [
+      "VS_CPU_1",
+      "K_CPU_1",
+      "K_CPU_1_SINK",
+      "0"
+    ],
+    [
+      "VS_CPU_2",
+      "K_CPU_2",
+      "K_CPU_2_SINK",
+      "0"
+    ],
+    [
+      "VS_CPU_3",
+      "K_CPU_3",
+      "K_CPU_3_SINK",
+      "0"
+    ],
+    [
+      "VS_CPU_4",
+      "K_CPU_4",
+      "K_CPU_4_SINK",
+      "0"
+    ],
+    [
+      "VS_CPU_5",
+      "K_CPU_5",
+      "K_CPU_5_SINK",
+      "0"
+    ],
+    [
+      "VS_CPU_6",
+      "K_CPU_6",
+      "K_CPU_6_SINK",
+      "0"
+    ],
+    [
+      "VS_CPU_7",
+      "K_CPU_7",
+      "K_CPU_7_SINK",
+      "0"
+    ],
+    [
+      "VS_CPU_8",
+      "K_CPU_8",
+      "K_CPU_8_SINK",
+      "0"
+    ],
+    [
+      "VS_CPU_9",
+      "K_CPU_9",
+      "K_CPU_9_SINK",
+      "0"
+    ],
+    [
+      "VS_CPU_10",
+      "K_CPU_10",
+      "K_CPU_10_SINK",
+      "0"
+    ],
+    [
+      "VPWM_GPU",
+      "DRIVE_GPU",
+      "0",
+      "PULSE(0",
+      "{VGPIO}",
+      "100m",
+      "20n",
+      "20n",
+      "{DT1*50u}",
+      "50u)"
+    ],
+    [
+      "SIO_GPU",
+      "DRIVE_GPU",
+      "PWM_GPU",
+      "EN",
+      "0",
+      "GPIO_SW"
+    ],
+    [
+      "RPD_GPU",
+      "PWM_GPU",
+      "0",
+      "10k"
+    ],
+    [
+      "RF_GPU",
+      "PWM_GPU",
+      "SIG_GPU",
+      "{4700*RFAC}"
+    ],
+    [
+      "CF_GPU",
+      "SIG_GPU",
+      "0",
+      "{CFVAL}"
+    ],
+    [
+      "XÂ§XU_GPU",
+      "K_GPU_1_SINK",
+      "0",
+      "VCC_GPU",
+      "0",
+      "SIG_GPU",
+      "REF_GPU",
+      "REF_GPU",
+      "0",
+      "5V",
+      "K_GPU_10_SINK",
+      "K_GPU_9_SINK",
+      "K_GPU_8_SINK",
+      "K_GPU_7_SINK",
+      "K_GPU_6_SINK",
+      "K_GPU_5_SINK",
+      "K_GPU_4_SINK",
+      "K_GPU_3_SINK",
+      "K_GPU_2_SINK",
+      "XD3914",
+      "VREFVAL={VR1}",
+      "RLAD={RLADVAL}",
+      "ERR={THERR}",
+      "ISCALE={ISCALE}",
+      ";Â§pnba",
+      "1:OUT1)2:GND)3:V+)4:RLO)5:SIG)6:RHI)7:REF_OUT)8:REF_ADJ)9:MODE)10:OUT10)11:OUT9)12:OUT8)13:OUT7)14:OUT6)15:OUT5)16:OUT4)17:OUT3)18:OUT2"
+    ],
+    [
+      "VLOGIC_GPU",
+      "5V",
+      "VCC_GPU",
+      "0"
+    ],
+    [
+      "RSET_GPU",
+      "REF_GPU",
+      "0",
+      "{3300*RSETFAC}"
+    ],
+    [
+      "CD_GPU",
+      "5V",
+      "0",
+      "100n"
+    ],
+    [
+      "CB_GPU",
+      "5V",
+      "0",
+      "10Âµ",
+      "Rser=0.1"
+    ],
+    [
+      "XÂ§XLED_GPU",
+      "5V",
+      "5V",
+      "5V",
+      "5V",
+      "5V",
+      "5V",
+      "5V",
+      "5V",
+      "5V",
+      "5V",
+      "K_GPU_10",
+      "K_GPU_9",
+      "K_GPU_8",
+      "K_GPU_7",
+      "K_GPU_6",
+      "K_GPU_5",
+      "K_GPU_4",
+      "K_GPU_3",
+      "K_GPU_2",
+      "K_GPU_1",
+      "OSX10201_GYR1",
+      ";Â§pnba",
+      "1:A+)2:B+)3:C+)4:D+)5:E+)6:F+)7:G+)8:H+)9:I+)10:J+)11:J-)12:I-)13:H-)14:G-)15:F-)16:E-)17:D-)18:C-)19:B-)20:A-"
+    ],
+    [
+      "VS_GPU_1",
+      "K_GPU_1",
+      "K_GPU_1_SINK",
+      "0"
+    ],
+    [
+      "VS_GPU_2",
+      "K_GPU_2",
+      "K_GPU_2_SINK",
+      "0"
+    ],
+    [
+      "VS_GPU_3",
+      "K_GPU_3",
+      "K_GPU_3_SINK",
+      "0"
+    ],
+    [
+      "VS_GPU_4",
+      "K_GPU_4",
+      "K_GPU_4_SINK",
+      "0"
+    ],
+    [
+      "VS_GPU_5",
+      "K_GPU_5",
+      "K_GPU_5_SINK",
+      "0"
+    ],
+    [
+      "VS_GPU_6",
+      "K_GPU_6",
+      "K_GPU_6_SINK",
+      "0"
+    ],
+    [
+      "VS_GPU_7",
+      "K_GPU_7",
+      "K_GPU_7_SINK",
+      "0"
+    ],
+    [
+      "VS_GPU_8",
+      "K_GPU_8",
+      "K_GPU_8_SINK",
+      "0"
+    ],
+    [
+      "VS_GPU_9",
+      "K_GPU_9",
+      "K_GPU_9_SINK",
+      "0"
+    ],
+    [
+      "VS_GPU_10",
+      "K_GPU_10",
+      "K_GPU_10_SINK",
+      "0"
+    ],
+    [
+      "VPWM_NPU",
+      "DRIVE_NPU",
+      "0",
+      "PULSE(0",
+      "{VGPIO}",
+      "100m",
+      "20n",
+      "20n",
+      "{DT2*50u}",
+      "50u)"
+    ],
+    [
+      "SIO_NPU",
+      "DRIVE_NPU",
+      "PWM_NPU",
+      "EN",
+      "0",
+      "GPIO_SW"
+    ],
+    [
+      "RPD_NPU",
+      "PWM_NPU",
+      "0",
+      "10k"
+    ],
+    [
+      "RF_NPU",
+      "PWM_NPU",
+      "SIG_NPU",
+      "{4700*RFAC}"
+    ],
+    [
+      "CF_NPU",
+      "SIG_NPU",
+      "0",
+      "{CFVAL}"
+    ],
+    [
+      "XÂ§XU_NPU",
+      "K_NPU_1_SINK",
+      "0",
+      "VCC_NPU",
+      "0",
+      "SIG_NPU",
+      "REF_NPU",
+      "REF_NPU",
+      "0",
+      "5V",
+      "K_NPU_10_SINK",
+      "K_NPU_9_SINK",
+      "K_NPU_8_SINK",
+      "K_NPU_7_SINK",
+      "K_NPU_6_SINK",
+      "K_NPU_5_SINK",
+      "K_NPU_4_SINK",
+      "K_NPU_3_SINK",
+      "K_NPU_2_SINK",
+      "XD3914",
+      "VREFVAL={VR2}",
+      "RLAD={RLADVAL}",
+      "ERR={THERR}",
+      "ISCALE={ISCALE}",
+      ";Â§pnba",
+      "1:OUT1)2:GND)3:V+)4:RLO)5:SIG)6:RHI)7:REF_OUT)8:REF_ADJ)9:MODE)10:OUT10)11:OUT9)12:OUT8)13:OUT7)14:OUT6)15:OUT5)16:OUT4)17:OUT3)18:OUT2"
+    ],
+    [
+      "VLOGIC_NPU",
+      "5V",
+      "VCC_NPU",
+      "0"
+    ],
+    [
+      "RSET_NPU",
+      "REF_NPU",
+      "0",
+      "{3300*RSETFAC}"
+    ],
+    [
+      "CD_NPU",
+      "5V",
+      "0",
+      "100n"
+    ],
+    [
+      "CB_NPU",
+      "5V",
+      "0",
+      "10Âµ",
+      "Rser=0.1"
+    ],
+    [
+      "XÂ§XLED_NPU",
+      "5V",
+      "5V",
+      "5V",
+      "5V",
+      "5V",
+      "5V",
+      "5V",
+      "5V",
+      "5V",
+      "5V",
+      "K_NPU_10",
+      "K_NPU_9",
+      "K_NPU_8",
+      "K_NPU_7",
+      "K_NPU_6",
+      "K_NPU_5",
+      "K_NPU_4",
+      "K_NPU_3",
+      "K_NPU_2",
+      "K_NPU_1",
+      "OSX10201_GYR1",
+      ";Â§pnba",
+      "1:A+)2:B+)3:C+)4:D+)5:E+)6:F+)7:G+)8:H+)9:I+)10:J+)11:J-)12:I-)13:H-)14:G-)15:F-)16:E-)17:D-)18:C-)19:B-)20:A-"
+    ],
+    [
+      "VS_NPU_1",
+      "K_NPU_1",
+      "K_NPU_1_SINK",
+      "0"
+    ],
+    [
+      "VS_NPU_2",
+      "K_NPU_2",
+      "K_NPU_2_SINK",
+      "0"
+    ],
+    [
+      "VS_NPU_3",
+      "K_NPU_3",
+      "K_NPU_3_SINK",
+      "0"
+    ],
+    [
+      "VS_NPU_4",
+      "K_NPU_4",
+      "K_NPU_4_SINK",
+      "0"
+    ],
+    [
+      "VS_NPU_5",
+      "K_NPU_5",
+      "K_NPU_5_SINK",
+      "0"
+    ],
+    [
+      "VS_NPU_6",
+      "K_NPU_6",
+      "K_NPU_6_SINK",
+      "0"
+    ],
+    [
+      "VS_NPU_7",
+      "K_NPU_7",
+      "K_NPU_7_SINK",
+      "0"
+    ],
+    [
+      "VS_NPU_8",
+      "K_NPU_8",
+      "K_NPU_8_SINK",
+      "0"
+    ],
+    [
+      "VS_NPU_9",
+      "K_NPU_9",
+      "K_NPU_9_SINK",
+      "0"
+    ],
+    [
+      "VS_NPU_10",
+      "K_NPU_10",
+      "K_NPU_10_SINK",
+      "0"
+    ],
+    [
+      "VEN",
+      "EN",
+      "0",
+      "PWL(0",
+      "1",
+      "399.999m",
+      "1",
+      "400m",
+      "0)"
+    ]
+  ],
+  "supplyMin_V": 4.98929023743,
+  "maxRipple_mV": 3.84676456451,
+  "maxChipPowerEstimate_W": 0.264524570525,
+  "results": [
+    {
+      "test": "PWM / reset",
+      "channel": "CPU",
+      "cfval": 0.0000022,
+      "count": 3,
+      "signal_V": 0.447503079972,
+      "ripple_mV": 1.8585920333900001,
+      "resetCount": 0,
+      "startupCount": 0,
+      "led_mA": 4.94545465336,
+      "chipPowerEstimate_W": 0.0661449104224,
+      "pass": true
+    },
+    {
+      "test": "PWM / reset",
+      "channel": "GPU",
+      "cfval": 0.0000022,
+      "count": 6,
+      "signal_V": 0.830354522385,
+      "ripple_mV": 2.98243761063,
+      "resetCount": 0,
+      "startupCount": 0,
+      "led_mA": 4.94545465336,
+      "chipPowerEstimate_W": 0.11044576274,
+      "pass": true
+    },
+    {
+      "test": "PWM / reset",
+      "channel": "NPU",
+      "cfval": 0.0000022,
+      "count": 10,
+      "signal_V": 1.37910826964,
+      "ripple_mV": 3.84676456451,
+      "resetCount": 0,
+      "startupCount": 0,
+      "led_mA": 4.94545465336,
+      "chipPowerEstimate_W": 0.16951356583,
+      "pass": true
+    },
+    {
+      "test": "PWM / reset",
+      "channel": "CPU",
+      "cfval": 0.0000068,
+      "count": 3,
+      "signal_V": 0.44724169865,
+      "ripple_mV": 0.763595104215,
+      "resetCount": 0,
+      "startupCount": 0,
+      "led_mA": 4.94545465336,
+      "chipPowerEstimate_W": 0.0661449104224,
+      "pass": true
+    },
+    {
+      "test": "PWM / reset",
+      "channel": "GPU",
+      "cfval": 0.0000068,
+      "count": 6,
+      "signal_V": 0.829869717003,
+      "ripple_mV": 1.26594305038,
+      "resetCount": 0,
+      "startupCount": 0,
+      "led_mA": 4.94545465336,
+      "chipPowerEstimate_W": 0.11044576274,
+      "pass": true
+    },
+    {
+      "test": "PWM / reset",
+      "channel": "NPU",
+      "cfval": 0.0000068,
+      "count": 10,
+      "signal_V": 1.3783031389,
+      "ripple_mV": 1.74462795258,
+      "resetCount": 0,
+      "startupCount": 0,
+      "led_mA": 4.94545465336,
+      "chipPowerEstimate_W": 0.16951356583,
+      "pass": true
+    },
+    {
+      "test": "DC levels / stress",
+      "channel": "CPU",
+      "level": 0,
+      "corner": -1,
+      "count": 0,
+      "led_mA": 9.999999717180001e-7,
+      "chipPowerEstimate_W": 0.0234573777883,
+      "pass": true
+    },
+    {
+      "test": "DC levels / stress",
+      "channel": "GPU",
+      "level": 0,
+      "corner": -1,
+      "count": 0,
+      "led_mA": 9.999999717180001e-7,
+      "chipPowerEstimate_W": 0.0241814217726,
+      "pass": true
+    },
+    {
+      "test": "DC levels / stress",
+      "channel": "NPU",
+      "level": 0,
+      "corner": -1,
+      "count": 0,
+      "led_mA": 9.999999717180001e-7,
+      "chipPowerEstimate_W": 0.0247244547609,
+      "pass": true
+    },
+    {
+      "test": "DC levels / stress",
+      "channel": "CPU",
+      "level": 1,
+      "corner": -1,
+      "count": 1,
+      "led_mA": 6.72502303496,
+      "chipPowerEstimate_W": 0.0451152689385,
+      "pass": true
+    },
+    {
+      "test": "DC levels / stress",
+      "channel": "GPU",
+      "level": 1,
+      "corner": -1,
+      "count": 1,
+      "led_mA": 7.17335799709,
+      "chipPowerEstimate_W": 0.0472499173707,
+      "pass": true
+    },
+    {
+      "test": "DC levels / stress",
+      "channel": "NPU",
+      "level": 1,
+      "corner": -1,
+      "count": 1,
+      "led_mA": 7.50960875303,
+      "chipPowerEstimate_W": 0.0488491554593,
+      "pass": true
+    },
+    {
+      "test": "DC levels / stress",
+      "channel": "CPU",
+      "level": 2,
+      "corner": -1,
+      "count": 2,
+      "led_mA": 6.72502303496,
+      "chipPowerEstimate_W": 0.06674436356,
+      "pass": true
+    },
+    {
+      "test": "DC levels / stress",
+      "channel": "GPU",
+      "level": 2,
+      "corner": -1,
+      "count": 2,
+      "led_mA": 7.17335799709,
+      "chipPowerEstimate_W": 0.0702877000913,
+      "pass": true
+    },
+    {
+      "test": "DC levels / stress",
+      "channel": "NPU",
+      "level": 2,
+      "corner": -1,
+      "count": 2,
+      "led_mA": 7.50960875303,
+      "chipPowerEstimate_W": 0.0729417036155,
+      "pass": true
+    },
+    {
+      "test": "DC levels / stress",
+      "channel": "CPU",
+      "level": 3,
+      "corner": -1,
+      "count": 3,
+      "led_mA": 6.72502303496,
+      "chipPowerEstimate_W": 0.0883446685939,
+      "pass": true
+    },
+    {
+      "test": "DC levels / stress",
+      "channel": "GPU",
+      "level": 3,
+      "corner": -1,
+      "count": 3,
+      "led_mA": 7.17335799709,
+      "chipPowerEstimate_W": 0.0932947721312,
+      "pass": true
+    },
+    {
+      "test": "DC levels / stress",
+      "channel": "NPU",
+      "level": 3,
+      "corner": -1,
+      "count": 3,
+      "led_mA": 7.50960875303,
+      "chipPowerEstimate_W": 0.0970021014758,
+      "pass": true
+    },
+    {
+      "test": "DC levels / stress",
+      "channel": "CPU",
+      "level": 4,
+      "corner": -1,
+      "count": 4,
+      "led_mA": 6.72502303496,
+      "chipPowerEstimate_W": 0.109916178175,
+      "pass": true
+    },
+    {
+      "test": "DC levels / stress",
+      "channel": "GPU",
+      "level": 4,
+      "corner": -1,
+      "count": 4,
+      "led_mA": 7.17335799709,
+      "chipPowerEstimate_W": 0.116271129097,
+      "pass": true
+    },
+    {
+      "test": "DC levels / stress",
+      "channel": "NPU",
+      "level": 4,
+      "corner": -1,
+      "count": 4,
+      "led_mA": 7.50960875303,
+      "chipPowerEstimate_W": 0.121030337386,
+      "pass": true
+    },
+    {
+      "test": "DC levels / stress",
+      "channel": "CPU",
+      "level": 5,
+      "corner": -1,
+      "count": 5,
+      "led_mA": 6.72502303496,
+      "chipPowerEstimate_W": 0.131458896565,
+      "pass": true
+    },
+    {
+      "test": "DC levels / stress",
+      "channel": "GPU",
+      "level": 5,
+      "corner": -1,
+      "count": 5,
+      "led_mA": 7.17335799709,
+      "chipPowerEstimate_W": 0.139216775382,
+      "pass": true
+    },
+    {
+      "test": "DC levels / stress",
+      "channel": "NPU",
+      "level": 5,
+      "corner": -1,
+      "count": 5,
+      "led_mA": 7.50960875303,
+      "chipPowerEstimate_W": 0.145026428372,
+      "pass": true
+    },
+    {
+      "test": "DC levels / stress",
+      "channel": "CPU",
+      "level": 6,
+      "corner": -1,
+      "count": 6,
+      "led_mA": 6.72502303496,
+      "chipPowerEstimate_W": 0.152972819501,
+      "pass": true
+    },
+    {
+      "test": "DC levels / stress",
+      "channel": "GPU",
+      "level": 6,
+      "corner": -1,
+      "count": 6,
+      "led_mA": 7.17335799709,
+      "chipPowerEstimate_W": 0.162131696331,
+      "pass": true
+    },
+    {
+      "test": "DC levels / stress",
+      "channel": "NPU",
+      "level": 6,
+      "corner": -1,
+      "count": 6,
+      "led_mA": 7.50960875303,
+      "chipPowerEstimate_W": 0.168990364569,
+      "pass": true
+    },
+    {
+      "test": "DC levels / stress",
+      "channel": "CPU",
+      "level": 7,
+      "corner": -1,
+      "count": 7,
+      "led_mA": 6.72502303496,
+      "chipPowerEstimate_W": 0.174457951247,
+      "pass": true
+    },
+    {
+      "test": "DC levels / stress",
+      "channel": "GPU",
+      "level": 7,
+      "corner": -1,
+      "count": 7,
+      "led_mA": 7.17335799709,
+      "chipPowerEstimate_W": 0.18501591515,
+      "pass": true
+    },
+    {
+      "test": "DC levels / stress",
+      "channel": "NPU",
+      "level": 7,
+      "corner": -1,
+      "count": 7,
+      "led_mA": 7.50960875303,
+      "chipPowerEstimate_W": 0.19292215047,
+      "pass": true
+    },
+    {
+      "test": "DC levels / stress",
+      "channel": "CPU",
+      "level": 8,
+      "corner": -1,
+      "count": 8,
+      "led_mA": 6.72502303496,
+      "chipPowerEstimate_W": 0.195914274713,
+      "pass": true
+    },
+    {
+      "test": "DC levels / stress",
+      "channel": "GPU",
+      "level": 8,
+      "corner": -1,
+      "count": 8,
+      "led_mA": 7.17335799709,
+      "chipPowerEstimate_W": 0.207869418896,
+      "pass": true
+    },
+    {
+      "test": "DC levels / stress",
+      "channel": "NPU",
+      "level": 8,
+      "corner": -1,
+      "count": 8,
+      "led_mA": 7.50960875303,
+      "chipPowerEstimate_W": 0.216821781584,
+      "pass": true
+    },
+    {
+      "test": "DC levels / stress",
+      "channel": "CPU",
+      "level": 9,
+      "corner": -1,
+      "count": 9,
+      "led_mA": 6.72502303496,
+      "chipPowerEstimate_W": 0.217341816081,
+      "pass": true
+    },
+    {
+      "test": "DC levels / stress",
+      "channel": "GPU",
+      "level": 9,
+      "corner": -1,
+      "count": 9,
+      "led_mA": 7.17335799709,
+      "chipPowerEstimate_W": 0.230692209764,
+      "pass": true
+    },
+    {
+      "test": "DC levels / stress",
+      "channel": "NPU",
+      "level": 9,
+      "corner": -1,
+      "count": 9,
+      "led_mA": 7.50960875303,
+      "chipPowerEstimate_W": 0.240689260154,
+      "pass": true
+    },
+    {
+      "test": "DC levels / stress",
+      "channel": "CPU",
+      "level": 10,
+      "corner": -1,
+      "count": 10,
+      "led_mA": 6.72502303496,
+      "chipPowerEstimate_W": 0.238740566257,
+      "pass": true
+    },
+    {
+      "test": "DC levels / stress",
+      "channel": "GPU",
+      "level": 10,
+      "corner": -1,
+      "count": 10,
+      "led_mA": 7.17335799709,
+      "chipPowerEstimate_W": 0.253484289951,
+      "pass": true
+    },
+    {
+      "test": "DC levels / stress",
+      "channel": "NPU",
+      "level": 10,
+      "corner": -1,
+      "count": 10,
+      "led_mA": 7.50960875303,
+      "chipPowerEstimate_W": 0.264524570525,
+      "pass": true
+    },
+    {
+      "test": "DC levels / stress",
+      "channel": "CPU",
+      "level": 0,
+      "corner": 1,
+      "count": 0,
+      "led_mA": 9.999999717180001e-7,
+      "chipPowerEstimate_W": 0.0216379211588,
+      "pass": true
+    },
+    {
+      "test": "DC levels / stress",
+      "channel": "GPU",
+      "level": 0,
+      "corner": 1,
+      "count": 0,
+      "led_mA": 9.999999717180001e-7,
+      "chipPowerEstimate_W": 0.0222406487812,
+      "pass": true
+    },
+    {
+      "test": "DC levels / stress",
+      "channel": "NPU",
+      "level": 0,
+      "corner": 1,
+      "count": 0,
+      "led_mA": 9.999999717180001e-7,
+      "chipPowerEstimate_W": 0.02269269572,
+      "pass": true
+    },
+    {
+      "test": "DC levels / stress",
+      "channel": "CPU",
+      "level": 1,
+      "corner": 1,
+      "count": 1,
+      "led_mA": 3.01436963491,
+      "chipPowerEstimate_W": 0.0315085863633,
+      "pass": true
+    },
+    {
+      "test": "DC levels / stress",
+      "channel": "GPU",
+      "level": 1,
+      "corner": 1,
+      "count": 1,
+      "led_mA": 3.21532762609,
+      "chipPowerEstimate_W": 0.0327568388287,
+      "pass": true
+    },
+    {
+      "test": "DC levels / stress",
+      "channel": "NPU",
+      "level": 1,
+      "corner": 1,
+      "count": 1,
+      "led_mA": 3.36604611948,
+      "chipPowerEstimate_W": 0.0336924424163,
+      "pass": true
+    },
+    {
+      "test": "DC levels / stress",
+      "channel": "CPU",
+      "level": 2,
+      "corner": 1,
+      "count": 2,
+      "led_mA": 3.01436963491,
+      "chipPowerEstimate_W": 0.0413734642162,
+      "pass": true
+    },
+    {
+      "test": "DC levels / stress",
+      "channel": "GPU",
+      "level": 2,
+      "corner": 1,
+      "count": 2,
+      "led_mA": 3.21532762609,
+      "chipPowerEstimate_W": 0.0432668573105,
+      "pass": true
+    },
+    {
+      "test": "DC levels / stress",
+      "channel": "NPU",
+      "level": 2,
+      "corner": 1,
+      "count": 2,
+      "led_mA": 3.36604611948,
+      "chipPowerEstimate_W": 0.044685726703,
+      "pass": true
+    },
+    {
+      "test": "DC levels / stress",
+      "channel": "CPU",
+      "level": 3,
+      "corner": 1,
+      "count": 3,
+      "led_mA": 3.01436963491,
+      "chipPowerEstimate_W": 0.0512325586488,
+      "pass": true
+    },
+    {
+      "test": "DC levels / stress",
+      "channel": "GPU",
+      "level": 3,
+      "corner": 1,
+      "count": 3,
+      "led_mA": 3.21532762609,
+      "chipPowerEstimate_W": 0.0537707059676,
+      "pass": true
+    },
+    {
+      "test": "DC levels / stress",
+      "channel": "NPU",
+      "level": 3,
+      "corner": 1,
+      "count": 3,
+      "led_mA": 3.36604611948,
+      "chipPowerEstimate_W": 0.0556725527033,
+      "pass": true
+    },
+    {
+      "test": "DC levels / stress",
+      "channel": "CPU",
+      "level": 4,
+      "corner": 1,
+      "count": 4,
+      "led_mA": 3.01436963491,
+      "chipPowerEstimate_W": 0.0610858705702,
+      "pass": true
+    },
+    {
+      "test": "DC levels / stress",
+      "channel": "GPU",
+      "level": 4,
+      "corner": 1,
+      "count": 4,
+      "led_mA": 3.21532762609,
+      "chipPowerEstimate_W": 0.0642683835462,
+      "pass": true
+    },
+    {
+      "test": "DC levels / stress",
+      "channel": "NPU",
+      "level": 4,
+      "corner": 1,
+      "count": 4,
+      "led_mA": 3.36604611948,
+      "chipPowerEstimate_W": 0.0666529183558,
+      "pass": true
+    },
+    {
+      "test": "DC levels / stress",
+      "channel": "CPU",
+      "level": 5,
+      "corner": 1,
+      "count": 5,
+      "led_mA": 3.01436963491,
+      "chipPowerEstimate_W": 0.0709333929838,
+      "pass": true
+    },
+    {
+      "test": "DC levels / stress",
+      "channel": "GPU",
+      "level": 5,
+      "corner": 1,
+      "count": 5,
+      "led_mA": 3.21532762609,
+      "chipPowerEstimate_W": 0.0747598880257,
+      "pass": true
+    },
+    {
+      "test": "DC levels / stress",
+      "channel": "NPU",
+      "level": 5,
+      "corner": 1,
+      "count": 5,
+      "led_mA": 3.36604611948,
+      "chipPowerEstimate_W": 0.0776268256113,
+      "pass": true
+    },
+    {
+      "test": "DC levels / stress",
+      "channel": "CPU",
+      "level": 6,
+      "corner": 1,
+      "count": 6,
+      "led_mA": 3.01436963491,
+      "chipPowerEstimate_W": 0.0807751319771,
+      "pass": true
+    },
+    {
+      "test": "DC levels / stress",
+      "channel": "GPU",
+      "level": 6,
+      "corner": 1,
+      "count": 6,
+      "led_mA": 3.21532762609,
+      "chipPowerEstimate_W": 0.0852452280468,
+      "pass": true
+    },
+    {
+      "test": "DC levels / stress",
+      "channel": "NPU",
+      "level": 6,
+      "corner": 1,
+      "count": 6,
+      "led_mA": 3.36604611948,
+      "chipPowerEstimate_W": 0.0885942713703,
+      "pass": true
+    },
+    {
+      "test": "DC levels / stress",
+      "channel": "CPU",
+      "level": 7,
+      "corner": 1,
+      "count": 7,
+      "led_mA": 3.01436963491,
+      "chipPowerEstimate_W": 0.0906110855846,
+      "pass": true
+    },
+    {
+      "test": "DC levels / stress",
+      "channel": "GPU",
+      "level": 7,
+      "corner": 1,
+      "count": 7,
+      "led_mA": 3.21532762609,
+      "chipPowerEstimate_W": 0.0957243931565,
+      "pass": true
+    },
+    {
+      "test": "DC levels / stress",
+      "channel": "NPU",
+      "level": 7,
+      "corner": 1,
+      "count": 7,
+      "led_mA": 3.36604611948,
+      "chipPowerEstimate_W": 0.0995552567815,
+      "pass": true
+    },
+    {
+      "test": "DC levels / stress",
+      "channel": "CPU",
+      "level": 8,
+      "corner": 1,
+      "count": 8,
+      "led_mA": 3.01436963491,
+      "chipPowerEstimate_W": 0.10044125759,
+      "pass": true
+    },
+    {
+      "test": "DC levels / stress",
+      "channel": "GPU",
+      "level": 8,
+      "corner": 1,
+      "count": 8,
+      "led_mA": 3.21532762609,
+      "chipPowerEstimate_W": 0.106197385167,
+      "pass": true
+    },
+    {
+      "test": "DC levels / stress",
+      "channel": "NPU",
+      "level": 8,
+      "corner": 1,
+      "count": 8,
+      "led_mA": 3.36604611948,
+      "chipPowerEstimate_W": 0.110509779783,
+      "pass": true
+    },
+    {
+      "test": "DC levels / stress",
+      "channel": "CPU",
+      "level": 9,
+      "corner": 1,
+      "count": 9,
+      "led_mA": 3.01436963491,
+      "chipPowerEstimate_W": 0.110265641144,
+      "pass": true
+    },
+    {
+      "test": "DC levels / stress",
+      "channel": "GPU",
+      "level": 9,
+      "corner": 1,
+      "count": 9,
+      "led_mA": 3.21532762609,
+      "chipPowerEstimate_W": 0.11666420812,
+      "pass": true
+    },
+    {
+      "test": "DC levels / stress",
+      "channel": "NPU",
+      "level": 9,
+      "corner": 1,
+      "count": 9,
+      "led_mA": 3.36604611948,
+      "chipPowerEstimate_W": 0.121457851721,
+      "pass": true
+    },
+    {
+      "test": "DC levels / stress",
+      "channel": "CPU",
+      "level": 10,
+      "corner": 1,
+      "count": 10,
+      "led_mA": 3.01436963491,
+      "chipPowerEstimate_W": 0.120084237346,
+      "pass": true
+    },
+    {
+      "test": "DC levels / stress",
+      "channel": "GPU",
+      "level": 10,
+      "corner": 1,
+      "count": 10,
+      "led_mA": 3.21532762609,
+      "chipPowerEstimate_W": 0.127124865639,
+      "pass": true
+    },
+    {
+      "test": "DC levels / stress",
+      "channel": "NPU",
+      "level": 10,
+      "corner": 1,
+      "count": 10,
+      "led_mA": 3.36604611948,
+      "chipPowerEstimate_W": 0.132399454829,
+      "pass": true
+    }
+  ],
+  "pass": true,
+  "sha256": {
+    "level_meter.asc": "495242d31a523d7100c8963f36911b40765e93e5b6bb5280a3d60c94f39d260d",
+    "level_meter.cir": "6935622bac25c5829a2ad1c4738c4be58de658e260ba71b9ce75cec557b88b61",
+    "levels.cir": "b1f075c78bdf938213b60fb0b116c8737e7a6c95d3f1cc187237f57f71385d0d",
+    "meter_models.lib": "0adb5365c70d05a9477a80e3070f1c0795ebc6691f95320cd6e7f4a5509644bd",
+    "XD3914.asy": "ef3dba1fc4012ae2d2cb0fe1d0dec07c40510662990c2f1350aa9e70b85d4131",
+    "OSX10201_GYR1.asy": "49a9be562a7d81d93301366fbf1d716ea0b0fae79529c66bacea9ff4aa59e23a",
+    "expected-nets.json": "ba54a485ac0279af675c6deb6d8e3bfc05f8c0c89b8e10f32236ce128e6d2183",
+    "level_meter.log": "64267b47601905d40b65ab5088d769ddaa85adac62764d1d3a4ce9f5e729cc13",
+    "levels.log": "9c5ede11167adfd67ff2cbc394c1fb81c575ec09cc82faac534a4fdb5a5f6e8f"
+  }
+}

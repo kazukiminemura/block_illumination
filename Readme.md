@@ -1,18 +1,16 @@
 # block_illumination
 
-Pico 2 HとLT-5016M1×3による48×16ドット・赤/黄緑LED表示器。
+Pico 2 H・XD3914 ×3・OSX10201-GYR1 ×3を使うCPU/GPU/NPU使用率メーターの試作設計 Rev C。
 
-## Rev B 試作製作資料（2026-11-01）
+- [概要図](docs/overview.svg)
+- [実端子付き配線図](hardware/schematic.svg)
+- [設計・組立・校正・検証手順](hardware/README.md)
+- [全端子表](hardware/connections.csv) / [部品表](hardware/bom.csv)
+- [LTspice回路](simulation/ltspice/level_meter.asc)
+- [LTspice検証結果](simulation/ltspice/meter-results.json)
+- [Pico用MicroPython](firmware/main.py)
 
-- [配線図・全端子表・部品表・検証記録](simulation/ltspice/implementation.html)
-- [試作配線図 SVG](simulation/ltspice/implementation.svg)
-- [全IC・全LED接続図 SVG](simulation/ltspice/full_circuit.svg)
-- [LTspice全体回路](simulation/ltspice/full_circuit.asc)
-- [物理端子番号付き接続 CSV](simulation/ltspice/assembly-connections.csv)
-- [部品表 CSV](simulation/ltspice/bom.csv)
-- [検証範囲と再現手順](simulation/ltspice/FULL_CIRCUIT.md)
+LTspiceの動作近似モデルで72件の判定が合格しています。実機検証は未実施です。基準電圧の実測校正が必要です。
+PC側の使用率取得プログラムは含みません。旧LEDマトリクス設計は削除しました。
 
-**Rev Bは試作版です。実部品の動作・温度を保証する量産確定図ではありません。**
-LED実端子、AO3401A、IREF=10kΩ（約5.04mA）、初期消灯用GP10と2N3904を具体化しました。
-元写真そのままの復元ではなく、試作向けに接続を定義し直した設計です。
-旧版Rev Aの3.3kΩ/15.27mA・8信号・未確定端子の説明はRev Bには適用しません。
+再生成：`node hardware/build.cjs`。詳細は設計資料を参照してください。

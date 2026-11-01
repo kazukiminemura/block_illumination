@@ -1,0 +1,332 @@
+LTspice 26.1.1 for Windows
+Circuit: C:\Users\minemura\projects\block_illumination\simulation\ltspice\levels.cir
+Start Time: Sun Nov  1 10:53:18 2026
+Options:plotwinsize=0
+
+.step level=0 corner=-1
+solver = Normal
+Maximum thread count: 12
+tnom = 27
+temp = 27
+method = trap
+Direct Newton iteration succeeded in finding operating point.
+
+.step level=1 corner=-1
+Direct Newton iteration succeeded in finding operating point.
+
+.step level=2 corner=-1
+Direct Newton iteration succeeded in finding operating point.
+
+.step level=3 corner=-1
+Direct Newton iteration succeeded in finding operating point.
+
+.step level=4 corner=-1
+Direct Newton iteration succeeded in finding operating point.
+
+.step level=5 corner=-1
+Direct Newton iteration succeeded in finding operating point.
+
+.step level=6 corner=-1
+Direct Newton iteration succeeded in finding operating point.
+
+.step level=7 corner=-1
+Direct Newton iteration succeeded in finding operating point.
+
+.step level=8 corner=-1
+Direct Newton iteration succeeded in finding operating point.
+
+.step level=9 corner=-1
+Direct Newton iteration succeeded in finding operating point.
+
+.step level=10 corner=-1
+Direct Newton iteration succeeded in finding operating point.
+
+.step level=0 corner=1
+Direct Newton iteration succeeded in finding operating point.
+
+.step level=1 corner=1
+Direct Newton iteration succeeded in finding operating point.
+
+.step level=2 corner=1
+Direct Newton iteration succeeded in finding operating point.
+
+.step level=3 corner=1
+Direct Newton iteration succeeded in finding operating point.
+
+.step level=4 corner=1
+Direct Newton iteration succeeded in finding operating point.
+
+.step level=5 corner=1
+Direct Newton iteration succeeded in finding operating point.
+
+.step level=6 corner=1
+Direct Newton iteration succeeded in finding operating point.
+
+.step level=7 corner=1
+Direct Newton iteration succeeded in finding operating point.
+
+.step level=8 corner=1
+Direct Newton iteration succeeded in finding operating point.
+
+.step level=9 corner=1
+Direct Newton iteration succeeded in finding operating point.
+
+.step level=10 corner=1
+Direct Newton iteration succeeded in finding operating point.
+Total elapsed time: 4.183 seconds.
+Total iterations: 60
+
+Files loaded:
+C:\Users\minemura\projects\block_illumination\simulation\ltspice\levels.cir
+C:\Users\minemura\projects\block_illumination\simulation\ltspice\meter_models.lib
+
+
+Measurement: cpu_count
+  step	(if(I(VS_CPU_1)>1m,1,0)+if(I(VS_CPU_2)>1m,1,0)+if(I(VS_CPU_3)>1m,1,0)+if(I(VS_CPU_4)>1m,1,0)+if(I(VS_CPU_5)>1m,1,0)+if(I(VS_CPU_6)>1m,1,0)+if(I(VS_CPU_7)>1m,1,0)+if(I(VS_CPU_8)>1m,1,0)+if(I(VS_CPU_9)>1m,1,0)+if(I(VS_CPU_10)>1m,1,0))	at
+     1	0	0.0005
+     2	1	0.0005
+     3	2	0.0005
+     4	3	0.0005
+     5	4	0.0005
+     6	5	0.0005
+     7	6	0.0005
+     8	7	0.0005
+     9	8	0.0005
+    10	9	0.0005
+    11	10	0.0005
+    12	0	0.0005
+    13	1	0.0005
+    14	2	0.0005
+    15	3	0.0005
+    16	4	0.0005
+    17	5	0.0005
+    18	6	0.0005
+    19	7	0.0005
+    20	8	0.0005
+    21	9	0.0005
+    22	10	0.0005
+
+Measurement: cpu_i
+  step	I(VS_CPU_1)	at
+     1	9.99999971718e-10	0.0005
+     2	0.00672502303496	0.0005
+     3	0.00672502303496	0.0005
+     4	0.00672502303496	0.0005
+     5	0.00672502303496	0.0005
+     6	0.00672502303496	0.0005
+     7	0.00672502303496	0.0005
+     8	0.00672502303496	0.0005
+     9	0.00672502303496	0.0005
+    10	0.00672502303496	0.0005
+    11	0.00672502303496	0.0005
+    12	9.99999971718e-10	0.0005
+    13	0.00301436963491	0.0005
+    14	0.00301436963491	0.0005
+    15	0.00301436963491	0.0005
+    16	0.00301436963491	0.0005
+    17	0.00301436963491	0.0005
+    18	0.00301436963491	0.0005
+    19	0.00301436963491	0.0005
+    20	0.00301436963491	0.0005
+    21	0.00301436963491	0.0005
+    22	0.00301436963491	0.0005
+
+Measurement: cpu_p
+  step	(V(K_CPU_1_SINK)*I(VS_CPU_1)+V(K_CPU_2_SINK)*I(VS_CPU_2)+V(K_CPU_3_SINK)*I(VS_CPU_3)+V(K_CPU_4_SINK)*I(VS_CPU_4)+V(K_CPU_5_SINK)*I(VS_CPU_5)+V(K_CPU_6_SINK)*I(VS_CPU_6)+V(K_CPU_7_SINK)*I(VS_CPU_7)+V(K_CPU_8_SINK)*I(VS_CPU_8)+V(K_CPU_9_SINK)*I(VS_CPU_9)+V(K_CPU_10_SINK)*I(VS_CPU_10)+V(VCC_CPU)*I(VLOGIC_CPU))	at
+     1	0.0234573777883	0.0005
+     2	0.0451152689385	0.0005
+     3	0.06674436356	0.0005
+     4	0.0883446685939	0.0005
+     5	0.109916178175	0.0005
+     6	0.131458896565	0.0005
+     7	0.152972819501	0.0005
+     8	0.174457951247	0.0005
+     9	0.195914274713	0.0005
+    10	0.217341816081	0.0005
+    11	0.238740566257	0.0005
+    12	0.0216379211588	0.0005
+    13	0.0315085863633	0.0005
+    14	0.0413734642162	0.0005
+    15	0.0512325586488	0.0005
+    16	0.0610858705702	0.0005
+    17	0.0709333929838	0.0005
+    18	0.0807751319771	0.0005
+    19	0.0906110855846	0.0005
+    20	0.10044125759	0.0005
+    21	0.110265641144	0.0005
+    22	0.120084237346	0.0005
+
+Measurement: gpu_count
+  step	(if(I(VS_GPU_1)>1m,1,0)+if(I(VS_GPU_2)>1m,1,0)+if(I(VS_GPU_3)>1m,1,0)+if(I(VS_GPU_4)>1m,1,0)+if(I(VS_GPU_5)>1m,1,0)+if(I(VS_GPU_6)>1m,1,0)+if(I(VS_GPU_7)>1m,1,0)+if(I(VS_GPU_8)>1m,1,0)+if(I(VS_GPU_9)>1m,1,0)+if(I(VS_GPU_10)>1m,1,0))	at
+     1	0	0.0005
+     2	1	0.0005
+     3	2	0.0005
+     4	3	0.0005
+     5	4	0.0005
+     6	5	0.0005
+     7	6	0.0005
+     8	7	0.0005
+     9	8	0.0005
+    10	9	0.0005
+    11	10	0.0005
+    12	0	0.0005
+    13	1	0.0005
+    14	2	0.0005
+    15	3	0.0005
+    16	4	0.0005
+    17	5	0.0005
+    18	6	0.0005
+    19	7	0.0005
+    20	8	0.0005
+    21	9	0.0005
+    22	10	0.0005
+
+Measurement: gpu_i
+  step	I(VS_GPU_1)	at
+     1	9.99999971718e-10	0.0005
+     2	0.00717335799709	0.0005
+     3	0.00717335799709	0.0005
+     4	0.00717335799709	0.0005
+     5	0.00717335799709	0.0005
+     6	0.00717335799709	0.0005
+     7	0.00717335799709	0.0005
+     8	0.00717335799709	0.0005
+     9	0.00717335799709	0.0005
+    10	0.00717335799709	0.0005
+    11	0.00717335799709	0.0005
+    12	9.99999971718e-10	0.0005
+    13	0.00321532762609	0.0005
+    14	0.00321532762609	0.0005
+    15	0.00321532762609	0.0005
+    16	0.00321532762609	0.0005
+    17	0.00321532762609	0.0005
+    18	0.00321532762609	0.0005
+    19	0.00321532762609	0.0005
+    20	0.00321532762609	0.0005
+    21	0.00321532762609	0.0005
+    22	0.00321532762609	0.0005
+
+Measurement: gpu_p
+  step	(V(K_GPU_1_SINK)*I(VS_GPU_1)+V(K_GPU_2_SINK)*I(VS_GPU_2)+V(K_GPU_3_SINK)*I(VS_GPU_3)+V(K_GPU_4_SINK)*I(VS_GPU_4)+V(K_GPU_5_SINK)*I(VS_GPU_5)+V(K_GPU_6_SINK)*I(VS_GPU_6)+V(K_GPU_7_SINK)*I(VS_GPU_7)+V(K_GPU_8_SINK)*I(VS_GPU_8)+V(K_GPU_9_SINK)*I(VS_GPU_9)+V(K_GPU_10_SINK)*I(VS_GPU_10)+V(VCC_GPU)*I(VLOGIC_GPU))	at
+     1	0.0241814217726	0.0005
+     2	0.0472499173707	0.0005
+     3	0.0702877000913	0.0005
+     4	0.0932947721312	0.0005
+     5	0.116271129097	0.0005
+     6	0.139216775382	0.0005
+     7	0.162131696331	0.0005
+     8	0.18501591515	0.0005
+     9	0.207869418896	0.0005
+    10	0.230692209764	0.0005
+    11	0.253484289951	0.0005
+    12	0.0222406487812	0.0005
+    13	0.0327568388287	0.0005
+    14	0.0432668573105	0.0005
+    15	0.0537707059676	0.0005
+    16	0.0642683835462	0.0005
+    17	0.0747598880257	0.0005
+    18	0.0852452280468	0.0005
+    19	0.0957243931565	0.0005
+    20	0.106197385167	0.0005
+    21	0.11666420812	0.0005
+    22	0.127124865639	0.0005
+
+Measurement: npu_count
+  step	(if(I(VS_NPU_1)>1m,1,0)+if(I(VS_NPU_2)>1m,1,0)+if(I(VS_NPU_3)>1m,1,0)+if(I(VS_NPU_4)>1m,1,0)+if(I(VS_NPU_5)>1m,1,0)+if(I(VS_NPU_6)>1m,1,0)+if(I(VS_NPU_7)>1m,1,0)+if(I(VS_NPU_8)>1m,1,0)+if(I(VS_NPU_9)>1m,1,0)+if(I(VS_NPU_10)>1m,1,0))	at
+     1	0	0.0005
+     2	1	0.0005
+     3	2	0.0005
+     4	3	0.0005
+     5	4	0.0005
+     6	5	0.0005
+     7	6	0.0005
+     8	7	0.0005
+     9	8	0.0005
+    10	9	0.0005
+    11	10	0.0005
+    12	0	0.0005
+    13	1	0.0005
+    14	2	0.0005
+    15	3	0.0005
+    16	4	0.0005
+    17	5	0.0005
+    18	6	0.0005
+    19	7	0.0005
+    20	8	0.0005
+    21	9	0.0005
+    22	10	0.0005
+
+Measurement: npu_i
+  step	I(VS_NPU_1)	at
+     1	9.99999971718e-10	0.0005
+     2	0.00750960875303	0.0005
+     3	0.00750960875303	0.0005
+     4	0.00750960875303	0.0005
+     5	0.00750960875303	0.0005
+     6	0.00750960875303	0.0005
+     7	0.00750960875303	0.0005
+     8	0.00750960875303	0.0005
+     9	0.00750960875303	0.0005
+    10	0.00750960875303	0.0005
+    11	0.00750960875303	0.0005
+    12	9.99999971718e-10	0.0005
+    13	0.00336604611948	0.0005
+    14	0.00336604611948	0.0005
+    15	0.00336604611948	0.0005
+    16	0.00336604611948	0.0005
+    17	0.00336604611948	0.0005
+    18	0.00336604611948	0.0005
+    19	0.00336604611948	0.0005
+    20	0.00336604611948	0.0005
+    21	0.00336604611948	0.0005
+    22	0.00336604611948	0.0005
+
+Measurement: npu_p
+  step	(V(K_NPU_1_SINK)*I(VS_NPU_1)+V(K_NPU_2_SINK)*I(VS_NPU_2)+V(K_NPU_3_SINK)*I(VS_NPU_3)+V(K_NPU_4_SINK)*I(VS_NPU_4)+V(K_NPU_5_SINK)*I(VS_NPU_5)+V(K_NPU_6_SINK)*I(VS_NPU_6)+V(K_NPU_7_SINK)*I(VS_NPU_7)+V(K_NPU_8_SINK)*I(VS_NPU_8)+V(K_NPU_9_SINK)*I(VS_NPU_9)+V(K_NPU_10_SINK)*I(VS_NPU_10)+V(VCC_NPU)*I(VLOGIC_NPU))	at
+     1	0.0247244547609	0.0005
+     2	0.0488491554593	0.0005
+     3	0.0729417036155	0.0005
+     4	0.0970021014758	0.0005
+     5	0.121030337386	0.0005
+     6	0.145026428372	0.0005
+     7	0.168990364569	0.0005
+     8	0.19292215047	0.0005
+     9	0.216821781584	0.0005
+    10	0.240689260154	0.0005
+    11	0.264524570525	0.0005
+    12	0.02269269572	0.0005
+    13	0.0336924424163	0.0005
+    14	0.044685726703	0.0005
+    15	0.0556725527033	0.0005
+    16	0.0666529183558	0.0005
+    17	0.0776268256113	0.0005
+    18	0.0885942713703	0.0005
+    19	0.0995552567815	0.0005
+    20	0.110509779783	0.0005
+    21	0.121457851721	0.0005
+    22	0.132399454829	0.0005
+
+Measurement: supply
+  step	V(5V)	at
+     1	5.24862146378	0.0005
+     2	5.24648046494	0.0005
+     3	5.24433946609	0.0005
+     4	5.24219894409	0.0005
+     5	5.24005794525	0.0005
+     6	5.23791742325	0.0005
+     7	5.23577642441	0.0005
+     8	5.2336359024	0.0005
+     9	5.23149490356	0.0005
+    10	5.22935390472	0.0005
+    11	5.22721338272	0.0005
+    12	5.24873161316	0.0005
+    13	5.2477722168	0.0005
+    14	5.2468123436	0.0005
+    15	5.24585294724	0.0005
+    16	5.24489355087	0.0005
+    17	5.24393367767	0.0005
+    18	5.24297428131	0.0005
+    19	5.24201488495	0.0005
+    20	5.24105501175	0.0005
+    21	5.24009561539	0.0005
+    22	5.23913574219	0.0005

@@ -1,0 +1,32 @@
+* XD3914 behavioral approximation, NOT a vendor transistor macro-model.
+* Bar mode only; no internal startup/oscillation/thermal dynamics are modeled.
+.model BARLED D(Is=1e-19 N=2 Rs=3 Cjo=10p)
+.model GPIO_SW SW(Ron=30 Roff=1G Vt=0.5 Vh=-0.01)
+.subckt XD3914 P1 P2 P3 P4 P5 P6 P7 P8 P9 P10 P11 P12 P13 P14 P15 P16 P17 P18 params: VREFVAL=1.28 RLAD=12k ERR=0 ISCALE=1
+BREF P7 P8 V={VREFVAL}*limit(V(P3,P2)/3,0,1)
+RLAD P6 P4 {RLAD}
+BSUP P3 P2 I=if(V(P3,P2)>2.5,2.4m+4*max(0,-I(BREF)),0)
+BBIAS P5 P2 I=100n
+BOUT1 P1 P2 I=if(V(P3,P2)>2.5,if(V(P9,P3)>-0.02,if(V(P5,P4)>0.1*V(P6,P4)+ERR,ISCALE*10*max(0,-I(BREF))*limit(V(P1,P2)/0.4,0,1),1n),0),0)
+BOUT2 P18 P2 I=if(V(P3,P2)>2.5,if(V(P9,P3)>-0.02,if(V(P5,P4)>0.2*V(P6,P4)+ERR,ISCALE*10*max(0,-I(BREF))*limit(V(P18,P2)/0.4,0,1),1n),0),0)
+BOUT3 P17 P2 I=if(V(P3,P2)>2.5,if(V(P9,P3)>-0.02,if(V(P5,P4)>0.3*V(P6,P4)+ERR,ISCALE*10*max(0,-I(BREF))*limit(V(P17,P2)/0.4,0,1),1n),0),0)
+BOUT4 P16 P2 I=if(V(P3,P2)>2.5,if(V(P9,P3)>-0.02,if(V(P5,P4)>0.4*V(P6,P4)+ERR,ISCALE*10*max(0,-I(BREF))*limit(V(P16,P2)/0.4,0,1),1n),0),0)
+BOUT5 P15 P2 I=if(V(P3,P2)>2.5,if(V(P9,P3)>-0.02,if(V(P5,P4)>0.5*V(P6,P4)+ERR,ISCALE*10*max(0,-I(BREF))*limit(V(P15,P2)/0.4,0,1),1n),0),0)
+BOUT6 P14 P2 I=if(V(P3,P2)>2.5,if(V(P9,P3)>-0.02,if(V(P5,P4)>0.6*V(P6,P4)+ERR,ISCALE*10*max(0,-I(BREF))*limit(V(P14,P2)/0.4,0,1),1n),0),0)
+BOUT7 P13 P2 I=if(V(P3,P2)>2.5,if(V(P9,P3)>-0.02,if(V(P5,P4)>0.7*V(P6,P4)+ERR,ISCALE*10*max(0,-I(BREF))*limit(V(P13,P2)/0.4,0,1),1n),0),0)
+BOUT8 P12 P2 I=if(V(P3,P2)>2.5,if(V(P9,P3)>-0.02,if(V(P5,P4)>0.8*V(P6,P4)+ERR,ISCALE*10*max(0,-I(BREF))*limit(V(P12,P2)/0.4,0,1),1n),0),0)
+BOUT9 P11 P2 I=if(V(P3,P2)>2.5,if(V(P9,P3)>-0.02,if(V(P5,P4)>0.9*V(P6,P4)+ERR,ISCALE*10*max(0,-I(BREF))*limit(V(P11,P2)/0.4,0,1),1n),0),0)
+BOUT10 P10 P2 I=if(V(P3,P2)>2.5,if(V(P9,P3)>-0.02,if(V(P5,P4)>1*V(P6,P4)+ERR,ISCALE*10*max(0,-I(BREF))*limit(V(P10,P2)/0.4,0,1),1n),0),0)
+.ends XD3914
+.subckt OSX10201_GYR1 P1 P2 P3 P4 P5 P6 P7 P8 P9 P10 P11 P12 P13 P14 P15 P16 P17 P18 P19 P20
+D1 P1 P20 BARLED
+D2 P2 P19 BARLED
+D3 P3 P18 BARLED
+D4 P4 P17 BARLED
+D5 P5 P16 BARLED
+D6 P6 P15 BARLED
+D7 P7 P14 BARLED
+D8 P8 P13 BARLED
+D9 P9 P12 BARLED
+D10 P10 P11 BARLED
+.ends OSX10201_GYR1

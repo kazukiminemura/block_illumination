@@ -1,0 +1,579 @@
+[
+  {
+    "name": "VDD",
+    "nodes": [
+      "VIN",
+      "0"
+    ]
+  },
+  {
+    "name": "RFEED",
+    "nodes": [
+      "VIN",
+      "5V"
+    ]
+  },
+  {
+    "name": "CBULK",
+    "nodes": [
+      "5V",
+      "0"
+    ]
+  },
+  {
+    "name": "VPWM_CPU",
+    "nodes": [
+      "DRIVE_CPU",
+      "0"
+    ]
+  },
+  {
+    "name": "SIO_CPU",
+    "nodes": [
+      "DRIVE_CPU",
+      "PWM_CPU",
+      "EN",
+      "0"
+    ]
+  },
+  {
+    "name": "RPD_CPU",
+    "nodes": [
+      "PWM_CPU",
+      "0"
+    ]
+  },
+  {
+    "name": "RF_CPU",
+    "nodes": [
+      "PWM_CPU",
+      "SIG_CPU"
+    ]
+  },
+  {
+    "name": "CF_CPU",
+    "nodes": [
+      "SIG_CPU",
+      "0"
+    ]
+  },
+  {
+    "name": "XU_CPU",
+    "nodes": [
+      "K_CPU_1_SINK",
+      "0",
+      "VCC_CPU",
+      "0",
+      "SIG_CPU",
+      "REF_CPU",
+      "REF_CPU",
+      "0",
+      "5V",
+      "K_CPU_10_SINK",
+      "K_CPU_9_SINK",
+      "K_CPU_8_SINK",
+      "K_CPU_7_SINK",
+      "K_CPU_6_SINK",
+      "K_CPU_5_SINK",
+      "K_CPU_4_SINK",
+      "K_CPU_3_SINK",
+      "K_CPU_2_SINK"
+    ]
+  },
+  {
+    "name": "VLOGIC_CPU",
+    "nodes": [
+      "5V",
+      "VCC_CPU"
+    ]
+  },
+  {
+    "name": "RSET_CPU",
+    "nodes": [
+      "REF_CPU",
+      "0"
+    ]
+  },
+  {
+    "name": "CD_CPU",
+    "nodes": [
+      "5V",
+      "0"
+    ]
+  },
+  {
+    "name": "CB_CPU",
+    "nodes": [
+      "5V",
+      "0"
+    ]
+  },
+  {
+    "name": "XLED_CPU",
+    "nodes": [
+      "5V",
+      "5V",
+      "5V",
+      "5V",
+      "5V",
+      "5V",
+      "5V",
+      "5V",
+      "5V",
+      "5V",
+      "K_CPU_10",
+      "K_CPU_9",
+      "K_CPU_8",
+      "K_CPU_7",
+      "K_CPU_6",
+      "K_CPU_5",
+      "K_CPU_4",
+      "K_CPU_3",
+      "K_CPU_2",
+      "K_CPU_1"
+    ]
+  },
+  {
+    "name": "VS_CPU_1",
+    "nodes": [
+      "K_CPU_1",
+      "K_CPU_1_SINK"
+    ]
+  },
+  {
+    "name": "VS_CPU_2",
+    "nodes": [
+      "K_CPU_2",
+      "K_CPU_2_SINK"
+    ]
+  },
+  {
+    "name": "VS_CPU_3",
+    "nodes": [
+      "K_CPU_3",
+      "K_CPU_3_SINK"
+    ]
+  },
+  {
+    "name": "VS_CPU_4",
+    "nodes": [
+      "K_CPU_4",
+      "K_CPU_4_SINK"
+    ]
+  },
+  {
+    "name": "VS_CPU_5",
+    "nodes": [
+      "K_CPU_5",
+      "K_CPU_5_SINK"
+    ]
+  },
+  {
+    "name": "VS_CPU_6",
+    "nodes": [
+      "K_CPU_6",
+      "K_CPU_6_SINK"
+    ]
+  },
+  {
+    "name": "VS_CPU_7",
+    "nodes": [
+      "K_CPU_7",
+      "K_CPU_7_SINK"
+    ]
+  },
+  {
+    "name": "VS_CPU_8",
+    "nodes": [
+      "K_CPU_8",
+      "K_CPU_8_SINK"
+    ]
+  },
+  {
+    "name": "VS_CPU_9",
+    "nodes": [
+      "K_CPU_9",
+      "K_CPU_9_SINK"
+    ]
+  },
+  {
+    "name": "VS_CPU_10",
+    "nodes": [
+      "K_CPU_10",
+      "K_CPU_10_SINK"
+    ]
+  },
+  {
+    "name": "VPWM_GPU",
+    "nodes": [
+      "DRIVE_GPU",
+      "0"
+    ]
+  },
+  {
+    "name": "SIO_GPU",
+    "nodes": [
+      "DRIVE_GPU",
+      "PWM_GPU",
+      "EN",
+      "0"
+    ]
+  },
+  {
+    "name": "RPD_GPU",
+    "nodes": [
+      "PWM_GPU",
+      "0"
+    ]
+  },
+  {
+    "name": "RF_GPU",
+    "nodes": [
+      "PWM_GPU",
+      "SIG_GPU"
+    ]
+  },
+  {
+    "name": "CF_GPU",
+    "nodes": [
+      "SIG_GPU",
+      "0"
+    ]
+  },
+  {
+    "name": "XU_GPU",
+    "nodes": [
+      "K_GPU_1_SINK",
+      "0",
+      "VCC_GPU",
+      "0",
+      "SIG_GPU",
+      "REF_GPU",
+      "REF_GPU",
+      "0",
+      "5V",
+      "K_GPU_10_SINK",
+      "K_GPU_9_SINK",
+      "K_GPU_8_SINK",
+      "K_GPU_7_SINK",
+      "K_GPU_6_SINK",
+      "K_GPU_5_SINK",
+      "K_GPU_4_SINK",
+      "K_GPU_3_SINK",
+      "K_GPU_2_SINK"
+    ]
+  },
+  {
+    "name": "VLOGIC_GPU",
+    "nodes": [
+      "5V",
+      "VCC_GPU"
+    ]
+  },
+  {
+    "name": "RSET_GPU",
+    "nodes": [
+      "REF_GPU",
+      "0"
+    ]
+  },
+  {
+    "name": "CD_GPU",
+    "nodes": [
+      "5V",
+      "0"
+    ]
+  },
+  {
+    "name": "CB_GPU",
+    "nodes": [
+      "5V",
+      "0"
+    ]
+  },
+  {
+    "name": "XLED_GPU",
+    "nodes": [
+      "5V",
+      "5V",
+      "5V",
+      "5V",
+      "5V",
+      "5V",
+      "5V",
+      "5V",
+      "5V",
+      "5V",
+      "K_GPU_10",
+      "K_GPU_9",
+      "K_GPU_8",
+      "K_GPU_7",
+      "K_GPU_6",
+      "K_GPU_5",
+      "K_GPU_4",
+      "K_GPU_3",
+      "K_GPU_2",
+      "K_GPU_1"
+    ]
+  },
+  {
+    "name": "VS_GPU_1",
+    "nodes": [
+      "K_GPU_1",
+      "K_GPU_1_SINK"
+    ]
+  },
+  {
+    "name": "VS_GPU_2",
+    "nodes": [
+      "K_GPU_2",
+      "K_GPU_2_SINK"
+    ]
+  },
+  {
+    "name": "VS_GPU_3",
+    "nodes": [
+      "K_GPU_3",
+      "K_GPU_3_SINK"
+    ]
+  },
+  {
+    "name": "VS_GPU_4",
+    "nodes": [
+      "K_GPU_4",
+      "K_GPU_4_SINK"
+    ]
+  },
+  {
+    "name": "VS_GPU_5",
+    "nodes": [
+      "K_GPU_5",
+      "K_GPU_5_SINK"
+    ]
+  },
+  {
+    "name": "VS_GPU_6",
+    "nodes": [
+      "K_GPU_6",
+      "K_GPU_6_SINK"
+    ]
+  },
+  {
+    "name": "VS_GPU_7",
+    "nodes": [
+      "K_GPU_7",
+      "K_GPU_7_SINK"
+    ]
+  },
+  {
+    "name": "VS_GPU_8",
+    "nodes": [
+      "K_GPU_8",
+      "K_GPU_8_SINK"
+    ]
+  },
+  {
+    "name": "VS_GPU_9",
+    "nodes": [
+      "K_GPU_9",
+      "K_GPU_9_SINK"
+    ]
+  },
+  {
+    "name": "VS_GPU_10",
+    "nodes": [
+      "K_GPU_10",
+      "K_GPU_10_SINK"
+    ]
+  },
+  {
+    "name": "VPWM_NPU",
+    "nodes": [
+      "DRIVE_NPU",
+      "0"
+    ]
+  },
+  {
+    "name": "SIO_NPU",
+    "nodes": [
+      "DRIVE_NPU",
+      "PWM_NPU",
+      "EN",
+      "0"
+    ]
+  },
+  {
+    "name": "RPD_NPU",
+    "nodes": [
+      "PWM_NPU",
+      "0"
+    ]
+  },
+  {
+    "name": "RF_NPU",
+    "nodes": [
+      "PWM_NPU",
+      "SIG_NPU"
+    ]
+  },
+  {
+    "name": "CF_NPU",
+    "nodes": [
+      "SIG_NPU",
+      "0"
+    ]
+  },
+  {
+    "name": "XU_NPU",
+    "nodes": [
+      "K_NPU_1_SINK",
+      "0",
+      "VCC_NPU",
+      "0",
+      "SIG_NPU",
+      "REF_NPU",
+      "REF_NPU",
+      "0",
+      "5V",
+      "K_NPU_10_SINK",
+      "K_NPU_9_SINK",
+      "K_NPU_8_SINK",
+      "K_NPU_7_SINK",
+      "K_NPU_6_SINK",
+      "K_NPU_5_SINK",
+      "K_NPU_4_SINK",
+      "K_NPU_3_SINK",
+      "K_NPU_2_SINK"
+    ]
+  },
+  {
+    "name": "VLOGIC_NPU",
+    "nodes": [
+      "5V",
+      "VCC_NPU"
+    ]
+  },
+  {
+    "name": "RSET_NPU",
+    "nodes": [
+      "REF_NPU",
+      "0"
+    ]
+  },
+  {
+    "name": "CD_NPU",
+    "nodes": [
+      "5V",
+      "0"
+    ]
+  },
+  {
+    "name": "CB_NPU",
+    "nodes": [
+      "5V",
+      "0"
+    ]
+  },
+  {
+    "name": "XLED_NPU",
+    "nodes": [
+      "5V",
+      "5V",
+      "5V",
+      "5V",
+      "5V",
+      "5V",
+      "5V",
+      "5V",
+      "5V",
+      "5V",
+      "K_NPU_10",
+      "K_NPU_9",
+      "K_NPU_8",
+      "K_NPU_7",
+      "K_NPU_6",
+      "K_NPU_5",
+      "K_NPU_4",
+      "K_NPU_3",
+      "K_NPU_2",
+      "K_NPU_1"
+    ]
+  },
+  {
+    "name": "VS_NPU_1",
+    "nodes": [
+      "K_NPU_1",
+      "K_NPU_1_SINK"
+    ]
+  },
+  {
+    "name": "VS_NPU_2",
+    "nodes": [
+      "K_NPU_2",
+      "K_NPU_2_SINK"
+    ]
+  },
+  {
+    "name": "VS_NPU_3",
+    "nodes": [
+      "K_NPU_3",
+      "K_NPU_3_SINK"
+    ]
+  },
+  {
+    "name": "VS_NPU_4",
+    "nodes": [
+      "K_NPU_4",
+      "K_NPU_4_SINK"
+    ]
+  },
+  {
+    "name": "VS_NPU_5",
+    "nodes": [
+      "K_NPU_5",
+      "K_NPU_5_SINK"
+    ]
+  },
+  {
+    "name": "VS_NPU_6",
+    "nodes": [
+      "K_NPU_6",
+      "K_NPU_6_SINK"
+    ]
+  },
+  {
+    "name": "VS_NPU_7",
+    "nodes": [
+      "K_NPU_7",
+      "K_NPU_7_SINK"
+    ]
+  },
+  {
+    "name": "VS_NPU_8",
+    "nodes": [
+      "K_NPU_8",
+      "K_NPU_8_SINK"
+    ]
+  },
+  {
+    "name": "VS_NPU_9",
+    "nodes": [
+      "K_NPU_9",
+      "K_NPU_9_SINK"
+    ]
+  },
+  {
+    "name": "VS_NPU_10",
+    "nodes": [
+      "K_NPU_10",
+      "K_NPU_10_SINK"
+    ]
+  },
+  {
+    "name": "VEN",
+    "nodes": [
+      "EN",
+      "0"
+    ]
+  }
+]
