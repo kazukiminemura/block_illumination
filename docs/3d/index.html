@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="ja">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>使用率メーター Rev C — 全体3D</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#101c28;color:#edf4f7;font:14px/1.6 system-ui,sans-serif}header{position:absolute;top:24px;left:28px;pointer-events:none}small{color:#6ae1c2;letter-spacing:.16em}h1{margin:4px 0;font-size:28px;font-weight:550}header p{margin:0;color:#a9bfce}canvas#view{display:block;width:100%;height:100dvh;touch-action:none;cursor:grab}.panel{position:absolute;right:20px;top:20px;bottom:20px;width:310px;overflow:auto;padding:20px;background:#152a39ed;border:1px solid #365363;border-radius:16px;backdrop-filter:blur(12px)}.row{display:flex;gap:8px;align-items:center;justify-content:space-between}button,select{font:inherit;color:#edf4f7;background:#243e50;border:1px solid #526e7c;border-radius:7px;padding:7px 10px;cursor:pointer}button:hover{background:#346457}input[type=range]{width:100%;accent-color:#6ae1c2}label{cursor:pointer}.section{border-top:1px solid #365363;margin-top:14px;padding-top:12px}.hint{font-size:12px;color:#a9bfce}a{color:#8bcfff}#details{font-size:12px;max-height:170px;overflow:auto}table{width:100%;border-collapse:collapse}td,th{text-align:left;padding:3px;border-bottom:1px solid #294453}#error{display:none;position:absolute;top:35%;left:10%;max-width:500px;background:#492c36;padding:24px;border-radius:12px}#status{color:#83e5bb;font-size:12px}footer{position:absolute;bottom:18px;left:28px;color:#9ab4c5;font-size:12px;pointer-events:none}@media(max-width:760px){header{top:12px;left:14px}h1{font-size:21px}header p{font-size:11px}.panel{top:auto;left:10px;right:10px;bottom:10px;width:auto;max-height:32vh;padding:12px}footer{display:none}}
+
+body{background:#e9edef;color:#243d45;font-family:'Segoe UI','Yu Gothic UI',sans-serif}header{top:34px;left:38px}header small{color:#477f73;font-size:11px;font-weight:700;letter-spacing:.22em}h1{font-size:27px;letter-spacing:.025em;font-weight:600;color:#203b42}header p{color:#6b8288;font-size:12px;margin-top:7px}.panel{background:rgba(255,255,255,.88);border:1px solid rgba(255,255,255,.96);box-shadow:0 18px 55px #233e4b16;border-radius:22px;right:22px;top:22px;bottom:22px;padding:24px;scrollbar-width:thin;scrollbar-color:#b7cbc8 transparent}.section{border-color:#e1e9e8;margin-top:18px;padding-top:16px}.panel b{font-size:12px;letter-spacing:.04em}button,select{background:#f0f5f4;border:1px solid #d7e3e0;color:#355750;border-radius:9px;font-size:12px;padding:8px 11px;transition:background .2s,box-shadow .2s}button:hover{background:#dcebe6;box-shadow:0 2px 7px #35575012}button[aria-pressed=true]{background:#337c69;color:white;border-color:#337c69}input[type=range]{accent-color:#378b72;height:4px;margin:17px 0 20px}input[type=checkbox]{accent-color:#378b72}.hint{color:#74878c;font-size:11px;line-height:1.8}.row output{font-family:monospace;color:#397e6e;font-weight:600;font-size:13px}a{color:#387e70;text-decoration:none;font-size:12px}a:hover{text-decoration:underline}#status{color:#4c8c76;font-size:10px}td,th{border-color:#e1e9e8}footer{color:#6f858a;background:#ffffffb0;border:1px solid #fff;padding:10px 16px;border-radius:20px;left:38px;bottom:24px;font-size:11px}.panel label{font-size:12px}.panel label[style]{color:#557477!important}#error{color:#fff}.panel .hint + .hint{border-top:1px solid #e1e9e8;padding-top:10px}@media(max-width:760px){header{left:18px;top:20px}h1{font-size:22px}.panel{left:12px;right:12px;top:auto;bottom:12px;border-radius:16px;padding:16px}}
+</style>
+<header><small>LEVEL METER / REV C</small><h1>全体の回路を、立体でたどる。</h1><p>Pico 2 H ×1 / XD3914 ×3 / OSX10201-GYR1 ×3</p></header>
+<canvas id="view" aria-label="使用率メーターの全体3D図。ドラッグで回転、ホイールでズーム、部品をクリックして端子を確認。"></canvas>
+<aside class="panel">
+ <div class="row"><b>分解表示</b><output id="amount">0%</output></div>
+ <input id="explode" type="range" min="0" max="100" value="0" aria-label="分解の割合">
+ <div class="row"><button id="play" aria-pressed="false">自動再生</button><button id="home">全体へ</button><button id="top">真上</button></div>
+ <div class="section row"><label for="channel">表示系統</label><select id="channel"><option value="ALL">全体</option><option>CPU</option><option>GPU</option><option>NPU</option></select></div>
+ <div class="section"><b>配線の表示</b><br>
+ <label style="color:#ff938a"><input type="checkbox" id="power"> ＋5V / GND</label><br>
+ <label style="color:#75d8ff"><input type="checkbox" id="signal" checked> PWM / 平滑 / 基準電圧</label><br>
+ <label style="color:#d7c1ff"><input type="checkbox" id="led" checked> LEDカソード 30本</label><br>
+ <label><input type="checkbox" id="labels"> 部品名</label>
+ </div>
+ <div class="section"><b>表示のデモ</b><span class="hint">（実機との通信なし）</span>
+ <div class="row"><label for="cpu">CPU</label><output id="cpuValue">30%</output></div><input id="cpu" type="range" min="0" max="100" value="30" aria-label="CPU使用率デモ">
+ <div class="row"><label for="gpu">GPU</label><output id="gpuValue">60%</output></div><input id="gpu" type="range" min="0" max="100" value="60" aria-label="GPU使用率デモ">
+ <div class="row"><label for="npu">NPU</label><output id="npuValue">100%</output></div><input id="npu" type="range" min="0" max="100" value="100" aria-label="NPU使用率デモ">
+ </div>
+ <div class="section"><b id="selected">部品をクリックすると接続を表示</b><div id="details" tabindex="0">端子番号はRev Cの接続表に対応します。</div></div>
+ <p class="hint">ドラッグ：回転 / ホイール：ズーム<br>外部5Vはドライバー基板へ。PicoはUSB給電、GNDのみ共通。外部5VをPicoへ直結しません。</p>
+ <p class="hint">配置・配線経路・分解動作は説明用です。基板製造データや実部品内部の再現ではありません。点灯デモは電気シミュレーションではありません。</p>
+ <div id="status" role="status">Three.jsを読み込み中…</div>
+ <a href="../../hardware/schematic.svg">回路図</a> · <a href="../../hardware/README.md">組立資料</a>
+</aside>
+<footer>USB → Pico → PWM → RC平滑 → XD3914 → LEDバー　｜　部品をクリックして端子表を確認</footer>
+<div id="error" role="alert">3Dを読み込めませんでした。インターネット接続とブラウザーのWebGL設定を確認してください。</div>
+<script id="connections" type="application/json">[{"reference":"PICO","physical_pin":"3","function_or_value":"GND","net":"GND"},{"reference":"J_PWR","physical_pin":"1","function_or_value":"external regulated 5V +/-5%","net":"5V"},{"reference":"J_PWR","physical_pin":"2","function_or_value":"GND","net":"GND"},{"reference":"PICO","physical_pin":"1","function_or_value":"GP0 PWM 20kHz","net":"PWM_CPU"},{"reference":"RF_CPU","physical_pin":"1","function_or_value":"4.7k 1%","net":"PWM_CPU"},{"reference":"RF_CPU","physical_pin":"2","function_or_value":"4.7k 1%","net":"SIG_CPU"},{"reference":"RPD_CPU","physical_pin":"1","function_or_value":"10k","net":"PWM_CPU"},{"reference":"RPD_CPU","physical_pin":"2","function_or_value":"10k","net":"GND"},{"reference":"CF_CPU","physical_pin":"1","function_or_value":"4.7uF X7R >=10V","net":"SIG_CPU"},{"reference":"CF_CPU","physical_pin":"2","function_or_value":"4.7uF X7R >=10V","net":"GND"},{"reference":"U_CPU","physical_pin":"2","function_or_value":"GND","net":"GND"},{"reference":"U_CPU","physical_pin":"3","function_or_value":"V+","net":"5V"},{"reference":"U_CPU","physical_pin":"4","function_or_value":"RLO","net":"GND"},{"reference":"U_CPU","physical_pin":"5","function_or_value":"SIG","net":"SIG_CPU"},{"reference":"U_CPU","physical_pin":"6","function_or_value":"RHI","net":"REF_CPU"},{"reference":"U_CPU","physical_pin":"7","function_or_value":"REF_OUT","net":"REF_CPU"},{"reference":"U_CPU","physical_pin":"8","function_or_value":"REF_ADJ","net":"GND"},{"reference":"U_CPU","physical_pin":"9","function_or_value":"MODE_BAR","net":"5V"},{"reference":"RSET_CPU","physical_pin":"1","function_or_value":"3.3k 1%","net":"REF_CPU"},{"reference":"RSET_CPU","physical_pin":"2","function_or_value":"3.3k 1%","net":"GND"},{"reference":"U_CPU","physical_pin":"1","function_or_value":"OUT1","net":"K_CPU_1"},{"reference":"LED_CPU","physical_pin":"1","function_or_value":"A anode","net":"5V"},{"reference":"LED_CPU","physical_pin":"20","function_or_value":"A cathode","net":"K_CPU_1"},{"reference":"U_CPU","physical_pin":"18","function_or_value":"OUT2","net":"K_CPU_2"},{"reference":"LED_CPU","physical_pin":"2","function_or_value":"B anode","net":"5V"},{"reference":"LED_CPU","physical_pin":"19","function_or_value":"B cathode","net":"K_CPU_2"},{"reference":"U_CPU","physical_pin":"17","function_or_value":"OUT3","net":"K_CPU_3"},{"reference":"LED_CPU","physical_pin":"3","function_or_value":"C anode","net":"5V"},{"reference":"LED_CPU","physical_pin":"18","function_or_value":"C cathode","net":"K_CPU_3"},{"reference":"U_CPU","physical_pin":"16","function_or_value":"OUT4","net":"K_CPU_4"},{"reference":"LED_CPU","physical_pin":"4","function_or_value":"D anode","net":"5V"},{"reference":"LED_CPU","physical_pin":"17","function_or_value":"D cathode","net":"K_CPU_4"},{"reference":"U_CPU","physical_pin":"15","function_or_value":"OUT5","net":"K_CPU_5"},{"reference":"LED_CPU","physical_pin":"5","function_or_value":"E anode","net":"5V"},{"reference":"LED_CPU","physical_pin":"16","function_or_value":"E cathode","net":"K_CPU_5"},{"reference":"U_CPU","physical_pin":"14","function_or_value":"OUT6","net":"K_CPU_6"},{"reference":"LED_CPU","physical_pin":"6","function_or_value":"F anode","net":"5V"},{"reference":"LED_CPU","physical_pin":"15","function_or_value":"F cathode","net":"K_CPU_6"},{"reference":"U_CPU","physical_pin":"13","function_or_value":"OUT7","net":"K_CPU_7"},{"reference":"LED_CPU","physical_pin":"7","function_or_value":"G anode","net":"5V"},{"reference":"LED_CPU","physical_pin":"14","function_or_value":"G cathode","net":"K_CPU_7"},{"reference":"U_CPU","physical_pin":"12","function_or_value":"OUT8","net":"K_CPU_8"},{"reference":"LED_CPU","physical_pin":"8","function_or_value":"H anode","net":"5V"},{"reference":"LED_CPU","physical_pin":"13","function_or_value":"H cathode","net":"K_CPU_8"},{"reference":"U_CPU","physical_pin":"11","function_or_value":"OUT9","net":"K_CPU_9"},{"reference":"LED_CPU","physical_pin":"9","function_or_value":"I anode","net":"5V"},{"reference":"LED_CPU","physical_pin":"12","function_or_value":"I cathode","net":"K_CPU_9"},{"reference":"U_CPU","physical_pin":"10","function_or_value":"OUT10","net":"K_CPU_10"},{"reference":"LED_CPU","physical_pin":"10","function_or_value":"J anode","net":"5V"},{"reference":"LED_CPU","physical_pin":"11","function_or_value":"J cathode","net":"K_CPU_10"},{"reference":"CD_CPU","physical_pin":"1","function_or_value":"100nF X7R >=10V","net":"5V"},{"reference":"CD_CPU","physical_pin":"2","function_or_value":"100nF X7R >=10V","net":"GND"},{"reference":"CB_CPU","physical_pin":"1","function_or_value":"10uF >=10V","net":"5V"},{"reference":"CB_CPU","physical_pin":"2","function_or_value":"10uF >=10V","net":"GND"},{"reference":"PICO","physical_pin":"4","function_or_value":"GP2 PWM 20kHz","net":"PWM_GPU"},{"reference":"RF_GPU","physical_pin":"1","function_or_value":"4.7k 1%","net":"PWM_GPU"},{"reference":"RF_GPU","physical_pin":"2","function_or_value":"4.7k 1%","net":"SIG_GPU"},{"reference":"RPD_GPU","physical_pin":"1","function_or_value":"10k","net":"PWM_GPU"},{"reference":"RPD_GPU","physical_pin":"2","function_or_value":"10k","net":"GND"},{"reference":"CF_GPU","physical_pin":"1","function_or_value":"4.7uF X7R >=10V","net":"SIG_GPU"},{"reference":"CF_GPU","physical_pin":"2","function_or_value":"4.7uF X7R >=10V","net":"GND"},{"reference":"U_GPU","physical_pin":"2","function_or_value":"GND","net":"GND"},{"reference":"U_GPU","physical_pin":"3","function_or_value":"V+","net":"5V"},{"reference":"U_GPU","physical_pin":"4","function_or_value":"RLO","net":"GND"},{"reference":"U_GPU","physical_pin":"5","function_or_value":"SIG","net":"SIG_GPU"},{"reference":"U_GPU","physical_pin":"6","function_or_value":"RHI","net":"REF_GPU"},{"reference":"U_GPU","physical_pin":"7","function_or_value":"REF_OUT","net":"REF_GPU"},{"reference":"U_GPU","physical_pin":"8","function_or_value":"REF_ADJ","net":"GND"},{"reference":"U_GPU","physical_pin":"9","function_or_value":"MODE_BAR","net":"5V"},{"reference":"RSET_GPU","physical_pin":"1","function_or_value":"3.3k 1%","net":"REF_GPU"},{"reference":"RSET_GPU","physical_pin":"2","function_or_value":"3.3k 1%","net":"GND"},{"reference":"U_GPU","physical_pin":"1","function_or_value":"OUT1","net":"K_GPU_1"},{"reference":"LED_GPU","physical_pin":"1","function_or_value":"A anode","net":"5V"},{"reference":"LED_GPU","physical_pin":"20","function_or_value":"A cathode","net":"K_GPU_1"},{"reference":"U_GPU","physical_pin":"18","function_or_value":"OUT2","net":"K_GPU_2"},{"reference":"LED_GPU","physical_pin":"2","function_or_value":"B anode","net":"5V"},{"reference":"LED_GPU","physical_pin":"19","function_or_value":"B cathode","net":"K_GPU_2"},{"reference":"U_GPU","physical_pin":"17","function_or_value":"OUT3","net":"K_GPU_3"},{"reference":"LED_GPU","physical_pin":"3","function_or_value":"C anode","net":"5V"},{"reference":"LED_GPU","physical_pin":"18","function_or_value":"C cathode","net":"K_GPU_3"},{"reference":"U_GPU","physical_pin":"16","function_or_value":"OUT4","net":"K_GPU_4"},{"reference":"LED_GPU","physical_pin":"4","function_or_value":"D anode","net":"5V"},{"reference":"LED_GPU","physical_pin":"17","function_or_value":"D cathode","net":"K_GPU_4"},{"reference":"U_GPU","physical_pin":"15","function_or_value":"OUT5","net":"K_GPU_5"},{"reference":"LED_GPU","physical_pin":"5","function_or_value":"E anode","net":"5V"},{"reference":"LED_GPU","physical_pin":"16","function_or_value":"E cathode","net":"K_GPU_5"},{"reference":"U_GPU","physical_pin":"14","function_or_value":"OUT6","net":"K_GPU_6"},{"reference":"LED_GPU","physical_pin":"6","function_or_value":"F anode","net":"5V"},{"reference":"LED_GPU","physical_pin":"15","function_or_value":"F cathode","net":"K_GPU_6"},{"reference":"U_GPU","physical_pin":"13","function_or_value":"OUT7","net":"K_GPU_7"},{"reference":"LED_GPU","physical_pin":"7","function_or_value":"G anode","net":"5V"},{"reference":"LED_GPU","physical_pin":"14","function_or_value":"G cathode","net":"K_GPU_7"},{"reference":"U_GPU","physical_pin":"12","function_or_value":"OUT8","net":"K_GPU_8"},{"reference":"LED_GPU","physical_pin":"8","function_or_value":"H anode","net":"5V"},{"reference":"LED_GPU","physical_pin":"13","function_or_value":"H cathode","net":"K_GPU_8"},{"reference":"U_GPU","physical_pin":"11","function_or_value":"OUT9","net":"K_GPU_9"},{"reference":"LED_GPU","physical_pin":"9","function_or_value":"I anode","net":"5V"},{"reference":"LED_GPU","physical_pin":"12","function_or_value":"I cathode","net":"K_GPU_9"},{"reference":"U_GPU","physical_pin":"10","function_or_value":"OUT10","net":"K_GPU_10"},{"reference":"LED_GPU","physical_pin":"10","function_or_value":"J anode","net":"5V"},{"reference":"LED_GPU","physical_pin":"11","function_or_value":"J cathode","net":"K_GPU_10"},{"reference":"CD_GPU","physical_pin":"1","function_or_value":"100nF X7R >=10V","net":"5V"},{"reference":"CD_GPU","physical_pin":"2","function_or_value":"100nF X7R >=10V","net":"GND"},{"reference":"CB_GPU","physical_pin":"1","function_or_value":"10uF >=10V","net":"5V"},{"reference":"CB_GPU","physical_pin":"2","function_or_value":"10uF >=10V","net":"GND"},{"reference":"PICO","physical_pin":"6","function_or_value":"GP4 PWM 20kHz","net":"PWM_NPU"},{"reference":"RF_NPU","physical_pin":"1","function_or_value":"4.7k 1%","net":"PWM_NPU"},{"reference":"RF_NPU","physical_pin":"2","function_or_value":"4.7k 1%","net":"SIG_NPU"},{"reference":"RPD_NPU","physical_pin":"1","function_or_value":"10k","net":"PWM_NPU"},{"reference":"RPD_NPU","physical_pin":"2","function_or_value":"10k","net":"GND"},{"reference":"CF_NPU","physical_pin":"1","function_or_value":"4.7uF X7R >=10V","net":"SIG_NPU"},{"reference":"CF_NPU","physical_pin":"2","function_or_value":"4.7uF X7R >=10V","net":"GND"},{"reference":"U_NPU","physical_pin":"2","function_or_value":"GND","net":"GND"},{"reference":"U_NPU","physical_pin":"3","function_or_value":"V+","net":"5V"},{"reference":"U_NPU","physical_pin":"4","function_or_value":"RLO","net":"GND"},{"reference":"U_NPU","physical_pin":"5","function_or_value":"SIG","net":"SIG_NPU"},{"reference":"U_NPU","physical_pin":"6","function_or_value":"RHI","net":"REF_NPU"},{"reference":"U_NPU","physical_pin":"7","function_or_value":"REF_OUT","net":"REF_NPU"},{"reference":"U_NPU","physical_pin":"8","function_or_value":"REF_ADJ","net":"GND"},{"reference":"U_NPU","physical_pin":"9","function_or_value":"MODE_BAR","net":"5V"},{"reference":"RSET_NPU","physical_pin":"1","function_or_value":"3.3k 1%","net":"REF_NPU"},{"reference":"RSET_NPU","physical_pin":"2","function_or_value":"3.3k 1%","net":"GND"},{"reference":"U_NPU","physical_pin":"1","function_or_value":"OUT1","net":"K_NPU_1"},{"reference":"LED_NPU","physical_pin":"1","function_or_value":"A anode","net":"5V"},{"reference":"LED_NPU","physical_pin":"20","function_or_value":"A cathode","net":"K_NPU_1"},{"reference":"U_NPU","physical_pin":"18","function_or_value":"OUT2","net":"K_NPU_2"},{"reference":"LED_NPU","physical_pin":"2","function_or_value":"B anode","net":"5V"},{"reference":"LED_NPU","physical_pin":"19","function_or_value":"B cathode","net":"K_NPU_2"},{"reference":"U_NPU","physical_pin":"17","function_or_value":"OUT3","net":"K_NPU_3"},{"reference":"LED_NPU","physical_pin":"3","function_or_value":"C anode","net":"5V"},{"reference":"LED_NPU","physical_pin":"18","function_or_value":"C cathode","net":"K_NPU_3"},{"reference":"U_NPU","physical_pin":"16","function_or_value":"OUT4","net":"K_NPU_4"},{"reference":"LED_NPU","physical_pin":"4","function_or_value":"D anode","net":"5V"},{"reference":"LED_NPU","physical_pin":"17","function_or_value":"D cathode","net":"K_NPU_4"},{"reference":"U_NPU","physical_pin":"15","function_or_value":"OUT5","net":"K_NPU_5"},{"reference":"LED_NPU","physical_pin":"5","function_or_value":"E anode","net":"5V"},{"reference":"LED_NPU","physical_pin":"16","function_or_value":"E cathode","net":"K_NPU_5"},{"reference":"U_NPU","physical_pin":"14","function_or_value":"OUT6","net":"K_NPU_6"},{"reference":"LED_NPU","physical_pin":"6","function_or_value":"F anode","net":"5V"},{"reference":"LED_NPU","physical_pin":"15","function_or_value":"F cathode","net":"K_NPU_6"},{"reference":"U_NPU","physical_pin":"13","function_or_value":"OUT7","net":"K_NPU_7"},{"reference":"LED_NPU","physical_pin":"7","function_or_value":"G anode","net":"5V"},{"reference":"LED_NPU","physical_pin":"14","function_or_value":"G cathode","net":"K_NPU_7"},{"reference":"U_NPU","physical_pin":"12","function_or_value":"OUT8","net":"K_NPU_8"},{"reference":"LED_NPU","physical_pin":"8","function_or_value":"H anode","net":"5V"},{"reference":"LED_NPU","physical_pin":"13","function_or_value":"H cathode","net":"K_NPU_8"},{"reference":"U_NPU","physical_pin":"11","function_or_value":"OUT9","net":"K_NPU_9"},{"reference":"LED_NPU","physical_pin":"9","function_or_value":"I anode","net":"5V"},{"reference":"LED_NPU","physical_pin":"12","function_or_value":"I cathode","net":"K_NPU_9"},{"reference":"U_NPU","physical_pin":"10","function_or_value":"OUT10","net":"K_NPU_10"},{"reference":"LED_NPU","physical_pin":"10","function_or_value":"J anode","net":"5V"},{"reference":"LED_NPU","physical_pin":"11","function_or_value":"J cathode","net":"K_NPU_10"},{"reference":"CD_NPU","physical_pin":"1","function_or_value":"100nF X7R >=10V","net":"5V"},{"reference":"CD_NPU","physical_pin":"2","function_or_value":"100nF X7R >=10V","net":"GND"},{"reference":"CB_NPU","physical_pin":"1","function_or_value":"10uF >=10V","net":"5V"},{"reference":"CB_NPU","physical_pin":"2","function_or_value":"10uF >=10V","net":"GND"},{"reference":"CBULK","physical_pin":"1","function_or_value":"100uF >=10V","net":"5V"},{"reference":"CBULK","physical_pin":"2","function_or_value":"100uF >=10V","net":"GND"}]</script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js" onerror="document.getElementById('error').style.display='block'"></script>
+<script>
+'use strict';
+if(typeof THREE!=='undefined')try{
+const $=id=>document.getElementById(id), rows=JSON.parse($('connections').textContent);
+const scene=new THREE.Scene();scene.background=new THREE.Color('#e9edef');
+const camera=new THREE.PerspectiveCamera(38,1,.1,1000);
+const renderer=new THREE.WebGLRenderer({canvas:$('view'),antialias:true});renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.outputColorSpace=THREE.SRGBColorSpace;
+scene.add(new THREE.HemisphereLight(0xffffff,0x919e9a,2.1));
+const light=new THREE.DirectionalLight(0xfff7e9,3.2);light.position.set(-40,100,60);scene.add(light);
+const materials={silver:new THREE.MeshStandardMaterial({color:0xb3c6cc,metalness:.7,roughness:.3}),black:new THREE.MeshStandardMaterial({color:0x202731,roughness:.6}),white:new THREE.MeshStandardMaterial({color:0xe7ece5,roughness:.5}),board:new THREE.MeshStandardMaterial({color:0x194f45,roughness:.48}),resistor:new THREE.MeshStandardMaterial({color:0xcbb593}),capacitor:new THREE.MeshStandardMaterial({color:0x3f7392})};
+const components={}, terminals=new Map(), labels=[], pickables=[], wires=[], demoLEDs={}, groups=['CPU','GPU','NPU'];
+const model=rows.reduce((a,r)=>{(a[r.reference]??=[]).push(r);return a;},{});
+function box(parent,x,y,z,w,h,d,mat){let geometry;
+ if(Math.min(w,h,d)>=1.4){const r=Math.min(.45,w/8,h/8,d/8),shape=new THREE.Shape(),a=w/2-r,b=h/2-r;shape.moveTo(-a,-b);shape.lineTo(a,-b);shape.lineTo(a,b);shape.lineTo(-a,b);shape.closePath();geometry=new THREE.ExtrudeGeometry(shape,{depth:d-2*r,bevelEnabled:true,bevelThickness:r,bevelSize:r,bevelSegments:3,steps:1});geometry.translate(0,0,-d/2+r);}else geometry=new THREE.BoxGeometry(w,h,d);
+ const mesh=new THREE.Mesh(geometry,mat);mesh.position.set(x,y,z);parent.add(mesh);return mesh;}
+function text(parent,caption,x,y,z,width=24,color='#35544d'){
+ const c=document.createElement('canvas');c.width=768;c.height=96;const ctx=c.getContext('2d');ctx.font='500 34px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillStyle='#f9fcfaee';ctx.fillRect(0,0,768,96);ctx.fillStyle=color;ctx.fillText(caption,384,48);
+ const s=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(c),depthTest:false}));s.position.set(x,y,z);s.scale.set(width,width/8,1);s.renderOrder=10;parent.add(s);labels.push(s);return s;
+}
+function component(ref,x,z,lift=18){const g=new THREE.Group();g.position.set(x,1,z);scene.add(g);g.userData.ref=ref;components[ref]={g,base:1,lift,channel:groups.find(c=>ref.endsWith('_'+c))||'ALL'};return g;}
+function pin(ref,n,x,y,z){const g=components[ref].g;box(g,x,y,z,.6,2.8,.6,materials.silver);terminals.set(ref+':'+n,{g,point:new THREE.Vector3(x,y,z)});}
+function clickable(ref,mesh){mesh.userData.ref=ref;pickables.push(mesh);}
+function dip(ref,x,z){const g=component(ref,x,z);clickable(ref,box(g,0,3,0,7.6,3.5,23,materials.black));
+ for(let i=0;i<9;i++){pin(ref,i+1,-4.8,.2,-10.16+i*2.54);pin(ref,18-i,4.8,.2,-10.16+i*2.54);}
+ box(g,-2.7,4.8,-9,.8,.12,.8,materials.white);text(g,'XD3914 · '+ref.slice(2),0,7,0,23);text(g,'1',-5,3,-12,3,'#ffde8c');return g;
+}
+function bar(ref,x,z){const g=component(ref,x,z,28);clickable(ref,box(g,0,3,0,25.5,5,10.2,materials.white));demoLEDs[ref.slice(4)]=[];
+ for(let i=0;i<10;i++){pin(ref,i+1,-11.43+i*2.54,.1,3.81);pin(ref,20-i,-11.43+i*2.54,.1,-3.81);
+ const color=i<5?0x89d548:i<8?0xffcd42:0xf86b60;const mat=new THREE.MeshStandardMaterial({color,emissive:color,emissiveIntensity:.05,roughness:.35});const lens=box(g,-11.43+i*2.54,5.6,0,1.8,.3,6.5,mat);clickable(ref,lens);demoLEDs[ref.slice(4)].push(lens);}
+ text(g,ref.slice(4)+' · OSX10201-GYR1',0,9,0,33);text(g,'1',-12,3,7,3,'#ffde8c');
+}
+function passive(ref,x,z,value,type='resistor'){
+ const g=component(ref,x,z,12);pin(ref,1,-2.5,.2,0);pin(ref,2,2.5,.2,0);
+ clickable(ref,box(g,0,2.2,0,type==='bulk'?6:4,type==='bulk'?8:2.8,type==='bulk'?6:2,materials[type==='resistor'?'resistor':'capacitor']));
+ text(g,ref+' '+value,0,type==='bulk'?9:5.8,0,19);if(type==='bulk')text(g,'+',-2.5,7,2,3,'#ffae91');
+}
+// Coordinates describe an explanatory layout, not a manufactured PCB.
+box(scene,15,-1.4,0,126,1.6,112,materials.board);
+const grid=new THREE.GridHelper(260,52,0x2f5262,0x1b3344);grid.position.y=-2.4;scene.add(grid);text(scene,'DRIVER BOARD · 外部5V',18,.1,-53,42,'#88debd');
+const pico=component('PICO',-68,0,22);clickable('PICO',box(pico,0,2,0,21,1.5,51,materials.board));box(pico,0,3,0,7,1.5,7,materials.black);
+for(let i=0;i<20;i++){pin('PICO',i+1,-8.89,.2,-24.13+i*2.54);pin('PICO',40-i,8.89,.2,-24.13+i*2.54);}
+box(pico,0,3.5,-23.8,8,3.5,6,materials.silver);text(pico,'Pico 2 H · USB給電',0,9,0,34);text(pico,'GP0 / GP2 / GP4',0,7,18,28,'#7bdcff');
+// USB cable is illustrative and separate from the external 5V board supply.
+// USB lead is constructed with the PC model below.
+const connector=component('J_PWR',61,44,10);clickable('J_PWR',box(connector,0,3,0,9,6,7,materials.black));pin('J_PWR',1,-2,.3,0);pin('J_PWR',2,2,.3,0);text(connector,'5V IN · 1:+ / 2:GND',0,10,0,28);
+passive('CBULK',43,44,'100µF','bulk');
+groups.forEach((ch,i)=>{const z=-34+i*34;dip('U_'+ch,16,z);bar('LED_'+ch,53,z);
+ passive('RF_'+ch,-25,z-8,'4.7kΩ');passive('RPD_'+ch,-38,z+6,'10kΩ');passive('CF_'+ch,-10,z+7,'4.7µF','cap');
+ passive('RSET_'+ch,5,z+12,'3.3kΩ');passive('CD_'+ch,28,z-9,'100nF','cap');passive('CB_'+ch,35,z+10,'10µF','bulk');});
+// Realistic surface details; placement remains an explanatory prototype.
+renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=.95;
+light.castShadow=true;light.shadow.mapSize.set(2048,2048);
+Object.assign(light.shadow.camera,{left:-130,right:130,top:110,bottom:-110,near:1,far:350});light.shadow.bias=-.001;light.shadow.normalBias=.15;light.shadow.radius=4;
+const fill=new THREE.DirectionalLight(0xcbe8ff,1.7);fill.position.set(70,55,-80);scene.add(fill);
+const rim=new THREE.DirectionalLight(0xffffff,1.2);rim.position.set(-90,25,-20);scene.add(rim);
+const desk=new THREE.Mesh(new THREE.PlaneGeometry(1800,1800),new THREE.MeshStandardMaterial({color:0xe9edef,roughness:.95}));desk.rotation.x=-Math.PI/2;desk.position.y=-8;desk.receiveShadow=true;scene.add(desk);grid.visible=false;
+function cylinder(parent,x,y,z,r,h,material){const m=new THREE.Mesh(new THREE.CylinderGeometry(r,r,h,24),material);m.position.set(x,y,z);parent.add(m);return m;}
+function printOn(parent,caption,x,y,z,w,h,color='#e6eee7'){
+ const c=document.createElement('canvas');c.width=512;c.height=128;const ctx=c.getContext('2d');ctx.fillStyle=color;ctx.font='bold 46px monospace';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(caption,256,64);
+ const m=new THREE.Mesh(new THREE.PlaneGeometry(w,h),new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(c),transparent:true,depthWrite:false}));m.rotation.x=-Math.PI/2;m.position.set(x,y,z);parent.add(m);
+}
+const gold=new THREE.MeshStandardMaterial({color:0xbea15d,metalness:.75,roughness:.3});
+const ceramic=new THREE.MeshStandardMaterial({color:0xb99964,roughness:.65});
+// Copper pads and holes on an illustrative universal board.
+const padGeo=new THREE.RingGeometry(.5,.95,12),holeGeo=new THREE.CircleGeometry(.46,10);
+const pads=new THREE.InstancedMesh(padGeo,gold,42*36),holes=new THREE.InstancedMesh(holeGeo,materials.black,42*36);
+const dummy=new THREE.Object3D();let pi=0;
+for(let x=0;x<42;x++)for(let z=0;z<36;z++){dummy.position.set(-43+x*2.8,-.57,-49+z*2.8);dummy.rotation.x=-Math.PI/2;dummy.updateMatrix();pads.setMatrixAt(pi,dummy.matrix);holes.setMatrixAt(pi++,dummy.matrix);}scene.add(pads,holes);
+for(const x of [-42,72])for(const z of [-50,50]){cylinder(scene,x,-4.5,z,2.2,6,gold);cylinder(scene,x,-.2,z,2.2,.8,materials.silver);box(scene,x,.25,z,2.8,.1,.4,materials.black);}
+printOn(scene,'LEVEL METER / REV C',12,-.5,-52,42,3);
+for(const [ref,c]of Object.entries(components)){
+ const g=c.g;
+ if(ref.startsWith('U_')){box(g,0,1.3,0,10,1.5,24,materials.black);printOn(g,'XD3914',0,4.79,0,6,2);cylinder(g,0,4.8,-10.3,1.1,.1,materials.black);}
+ if(ref.startsWith('R')){
+  const old=g.children.find(o=>o.userData.ref===ref);old.visible=false;
+  const body=cylinder(g,0,2.2,0,1,4,materials.resistor);body.rotation.z=Math.PI/2;clickable(ref,body);
+  const bands=ref.startsWith('RF_')?[0xffff00,0x873baa,0x111111,0x8d431f,0x8d431f]:ref.startsWith('RSET_')?[0xf47c20,0xf47c20,0x111111,0x8d431f,0x8d431f]:[0x8d431f,0x111111,0xf47c20,0xc6a03a];
+  bands.forEach((col,i)=>{const b=cylinder(g,-1.5+i*.7,2.2,0,1.025,.22,new THREE.MeshStandardMaterial({color:col,roughness:.6}));b.rotation.z=Math.PI/2;});
+  for(const x of [-2.1,2.1]){const lead=cylinder(g,x,2.2,0,.2,1,materials.silver);lead.rotation.z=Math.PI/2;}
+ }
+ if(ref.startsWith('CB')){
+  const old=g.children.find(o=>o.userData.ref===ref);old.visible=false;const body=cylinder(g,0,4.3,0,2.8,7,materials.capacitor);clickable(ref,body);cylinder(g,0,7.85,0,2.5,.15,materials.silver);
+  box(g,0,7.95,0,3.6,.04,.15,materials.black);box(g,0,7.95,0,.15,.04,3.6,materials.black);box(g,2.65,4.3,0,.12,6.4,1,materials.white);
+ }else if(ref.startsWith('C')){const body=g.children.find(o=>o.userData.ref===ref);body.material=ceramic;}
+}
+for(let i=0;i<20;i++)for(const x of [-8.89,8.89]){box(pico,x,1.1,-24.13+i*2.54,2.5,2.5,2.5,materials.black);cylinder(pico,x,2.85,-24.13+i*2.54,.8,.12,gold);}
+printOn(pico,'RP2350',0,3.81,0,5.7,1.4);printOn(pico,'PICO 2 H',0,2.8,13,12,2);
+for(let i=0;i<12;i++)box(pico,(i%3-1)*3,3,-14+Math.floor(i/3)*2,1.4,.6,.7,i%2?ceramic:materials.black);
+box(pico,4,3,7,3,1.3,2.3,materials.silver);printOn(pico,'BOOT',3,2.8,10,5,1);
+// Rounded insulated cables follow the exact same terminal endpoints.
+scene.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true;}});
+for(const [i,ch]of groups.entries()){printOn(scene,ch,54,-.48,-44+i*34,13,2.8);printOn(scene,'PWM / FILTER',-21,-.48,-49+i*34,24,1.8);}
+// Laptop is an explanatory host; its screen mirrors the three demo sliders.
+const pc=new THREE.Group();pc.position.set(-137,-3,-23);scene.add(pc);
+const aluminium=new THREE.MeshStandardMaterial({color:0x89969e,metalness:.72,roughness:.32});
+box(pc,0,0,0,86,3,59,aluminium);box(pc,0,1.6,-5,76,.5,32,materials.black);
+for(let row=0;row<5;row++)for(let col=0;col<14;col++)box(pc,-35+col*5.3,2,-18+row*5.3,4.3,.65,4,materials.black);
+box(pc,0,2,9,29,.6,3.5,materials.black);box(pc,0,1.65,20,25,.15,12,aluminium);
+const lid=new THREE.Group();lid.position.set(0,2,-28);lid.rotation.x=-.13;pc.add(lid);
+box(lid,0,28,0,86,56,2.2,materials.black);
+const screenCanvas=document.createElement('canvas');screenCanvas.width=960;screenCanvas.height=600;
+const screenTexture=new THREE.CanvasTexture(screenCanvas);screenTexture.colorSpace=THREE.SRGBColorSpace;
+const screen=new THREE.Mesh(new THREE.PlaneGeometry(80,49),new THREE.MeshBasicMaterial({map:screenTexture}));screen.position.set(0,28,1.2);lid.add(screen);
+box(lid,0,54,1.2,1,.7,.2,materials.silver);
+// USB-A on the laptop and micro USB on Pico. Cables follow the exploded Pico.
+box(pc,43,0,-18,1.1,1.6,5.6,materials.black);
+box(scene,-91,-3,-41,5,2.3,5.4,materials.black);
+box(pico,0,3.5,-28,7,3,5,materials.black);
+const supply=new THREE.Group();supply.position.set(108,0,35);scene.add(supply);
+box(supply,0,0,0,29,10,24,materials.black);printOn(supply,'5V DC',0,5.2,-3,21,4);printOn(supply,'REGULATED',0,5.2,4,23,2.2);
+let usbCable=null,powerLeads=[];
+function cable(points,material,r){const curve=new THREE.CatmullRomCurve3(points.map(p=>new THREE.Vector3(...p)),false,'centripetal');const mesh=new THREE.Mesh(new THREE.TubeGeometry(curve,64,r,8,false),material);mesh.castShadow=true;scene.add(mesh);return mesh;}
+function peripheralCables(){
+ if(usbCable){scene.remove(usbCable);usbCable.geometry.dispose();}
+ usbCable=cable([[-90,-3,-41],[-84,-2,-43],[-88,-3,-65],[-68,-3,-68],[-68,components.PICO.g.position.y+3.5,-28]],materials.black,.8);
+ if(!powerLeads.length){for(const [offset,color]of [[-1,0xb34f48],[1,0x30383d]]){const m=new THREE.MeshStandardMaterial({color,roughness:.5});powerLeads.push(cable([[95,0,35],[89,-1,36+offset],[86,-1,52+offset],[61+offset*2,1.3,44]],m,.45));}}
+ // Move the final end with the power connector during exploded view.
+ powerLeads.forEach((lead,i)=>{const offset=i===0?-1:1;lead.geometry.dispose();lead.geometry=new THREE.TubeGeometry(new THREE.CatmullRomCurve3([[95,0,35],[89,-1,36+offset],[86,-1,52+offset],[61+offset*2,components.J_PWR.g.position.y+.3,44]].map(p=>new THREE.Vector3(...p))),48,.45,8,false);});
+}
+function drawPcScreen(){const ctx=screenCanvas.getContext('2d');ctx.fillStyle='#142c35';ctx.fillRect(0,0,960,600);ctx.fillStyle='#75daba';ctx.font='22px sans-serif';ctx.fillText('USB CONNECTED / DISPLAY DEMO',52,60);ctx.fillStyle='#edf6f4';ctx.font='bold 42px sans-serif';ctx.fillText('Performance monitor',52,124);
+ groups.forEach((ch,i)=>{const v=Number($(ch.toLowerCase()).value),y=205+i*108;ctx.font='bold 28px sans-serif';ctx.fillStyle='#d7e5e5';ctx.fillText(ch,52,y);ctx.fillStyle='#8ce4c3';ctx.fillText(v+'%',784,y);ctx.fillStyle='#2b4650';ctx.fillRect(52,y+18,840,20);ctx.fillStyle=['#77d4b2','#70b7d7','#c2acdf'][i];ctx.fillRect(52,y+18,840*v/100,20);});ctx.fillStyle='#8ba6ae';ctx.font='19px sans-serif';ctx.fillText('Demo values - not live system telemetry',52,567);screenTexture.needsUpdate=true;}
+scene.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true;}});
+const colors={power:0xbe6260,ground:0x34434b,signal:0x4b9cbb,reference:0xc5a15b,led:0x748f9b};
+function netKind(net){return net==='5V'?'power':net==='GND'?'ground':net.startsWith('K_')?'led':net.startsWith('REF_')?'reference':'signal';}
+const nets=new Map();for(const row of rows){const key=row.reference+':'+row.physical_pin;if(!terminals.has(key))throw Error('Missing 3D terminal '+key);if(!nets.has(row.net))nets.set(row.net,[]);nets.get(row.net).push(row);}
+function connect(net,a,b,index){const kind=netKind(net),geometry=new THREE.BufferGeometry();geometry.setAttribute('position',new THREE.BufferAttribute(new Float32Array(18),3));
+ const line=new THREE.Mesh(geometry,new THREE.MeshStandardMaterial({color:colors[kind],roughness:.48,transparent:true,opacity:1}));line.castShadow=true;scene.add(line);
+ wires.push({net,a,b,line,kind,index,rows:[a,b].filter(r=>r.reference),channel:groups.find(ch=>net.includes(ch))||'ALL'});}
+for(const [net,ends]of nets){if(net==='5V'||net==='GND'){
+ const rail={point:new THREE.Vector3(net==='5V'?73:77,.2,0)};ends.forEach((end,i)=>connect(net,end,rail,i));
+ }else ends.slice(1).forEach((end,i)=>connect(net,ends[0],end,i));}
+const endpoints=new THREE.Vector3(),destination=new THREE.Vector3();
+function position(row,out){if(row.reference){const t=terminals.get(row.reference+':'+row.physical_pin);return out.copy(t.point).add(t.g.position);}return out.copy(row.point);}
+let selected=null,lastExplosion=-1;
+function updateWires(){peripheralCables();for(const w of wires){position(w.a,endpoints);position(w.b,destination);const a=endpoints.clone(),b=destination.clone();
+ const lane=w.kind==='led'?2+(Number(w.net.split('_').pop())%10)*.24:1+(w.index%8)*.22;const y=Math.max(a.y,b.y)+lane;
+ const pts=(w.kind==='power'||w.kind==='ground')?[a,new THREE.Vector3(a.x,y,a.z),new THREE.Vector3(b.x,y,a.z),new THREE.Vector3(b.x,.2,a.z),b,b]:[a,new THREE.Vector3(a.x,y,a.z),new THREE.Vector3((a.x+b.x)/2,y,a.z),new THREE.Vector3((a.x+b.x)/2,y,b.z),new THREE.Vector3(b.x,y,b.z),b];
+ const unique=pts.filter((p,i)=>i===0||p.distanceTo(pts[i-1])>.01);const curve=new THREE.CatmullRomCurve3(unique,false,'centripetal');w.line.geometry.dispose();w.line.geometry=new THREE.TubeGeometry(curve,28,w.kind==='power'||w.kind==='ground'?.23:.16,6,false);}}
+function visibility(){const channel=$('channel').value;for(const c of Object.values(components))c.g.visible=channel==='ALL'||c.channel==='ALL'||c.channel===channel;
+ for(const s of labels)s.visible=$('labels').checked;
+ for(const w of wires){const allowed=(w.kind==='power'||w.kind==='ground')?$('power').checked:w.kind==='led'?$('led').checked:$('signal').checked;
+ const channelOK=channel==='ALL'||w.channel===channel||(w.channel==='ALL'&&w.rows.every(r=>components[r.reference].channel==='ALL'||components[r.reference].channel===channel));
+ w.line.visible=allowed&&channelOK;w.line.material.opacity=selected?(w.rows.some(r=>r.reference===selected)?1:.08):1;}}
+function select(ref){selected=selected===ref?null:ref;$('selected').textContent=selected||'部品をクリックすると接続を表示';const entries=selected?(model[selected]||[]):[];$('details').replaceChildren();
+ if(entries.length){const table=document.createElement('table');const head=table.insertRow();for(const caption of ['pin','機能 / 値','ネット']){const th=document.createElement('th');th.textContent=caption;head.append(th);}for(const entry of entries){const row=table.insertRow();for(const key of ['physical_pin','function_or_value','net'])row.insertCell().textContent=entry[key];}$('details').append(table);}else $('details').textContent='接続を確認する部品を選択してください。';visibility();}
+function updateDemo(){drawPcScreen();for(const ch of groups){const v=Number($(ch.toLowerCase()).value);$(ch.toLowerCase()+'Value').value=v+'%';demoLEDs[ch].forEach((mesh,i)=>{const on=i<Math.floor(v/10);mesh.material.emissiveIntensity=on?1.5:.02;mesh.material.color.setHex(on?(i<5?0x89d548:i<8?0xffcd42:0xf86b60):0x253331);});}}
+let theta=.30,phi=.83,radius=240,drag=null,playing=false,start=0,phase=0;
+const target=new THREE.Vector3(-35,5,-5),ray=new THREE.Raycaster();
+function home(){theta=.22;phi=.91;radius=innerWidth<760?530:390;target.set(-35,5,-5);}home();
+function resize(){renderer.setSize(innerWidth,innerHeight,false);camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();camera.setViewOffset(innerWidth,innerHeight,innerWidth<760?0:150,innerWidth<760?-innerHeight*.12:0,innerWidth,innerHeight);}
+resize();addEventListener('resize',resize);
+const canvas=$('view');canvas.addEventListener('pointerdown',e=>{drag={id:e.pointerId,x:e.clientX,y:e.clientY,sx:e.clientX,sy:e.clientY};canvas.setPointerCapture(e.pointerId);});
+canvas.addEventListener('pointermove',e=>{if(!drag||e.pointerId!==drag.id)return;theta-=(e.clientX-drag.x)*.006;phi=Math.max(.02,Math.min(1.48,phi+(e.clientY-drag.y)*.006));drag.x=e.clientX;drag.y=e.clientY;});
+canvas.addEventListener('pointerup',e=>{if(drag&&Math.hypot(e.clientX-drag.sx,e.clientY-drag.sy)<5){ray.setFromCamera(new THREE.Vector2(e.clientX/innerWidth*2-1,1-e.clientY/innerHeight*2),camera);const hits=ray.intersectObjects(pickables).filter(h=>h.object.visible&&components[h.object.userData.ref].g.visible);if(hits.length)select(hits[0].object.userData.ref);else select(selected);}drag=null;});
+for(const name of ['pointercancel','lostpointercapture'])canvas.addEventListener(name,()=>drag=null);
+canvas.addEventListener('wheel',e=>{e.preventDefault();radius=Math.max(65,Math.min(520,radius*Math.exp(e.deltaY*.001)));},{passive:false});
+function play(on){playing=on;start=performance.now();phase=Math.acos(1-Number($('explode').value)/50);$('play').textContent=on?'一時停止':'自動再生';$('play').setAttribute('aria-pressed',String(on));}
+$('play').onclick=()=>play(!playing);$('explode').oninput=()=>play(false);$('home').onclick=()=>{home();select(selected);};$('top').onclick=()=>{home();phi=.02;theta=0;};
+for(const id of ['channel','power','signal','led','labels'])$(id).onchange=visibility;for(const ch of groups)$(ch.toLowerCase()).oninput=updateDemo;
+if(groups.some(ch=>demoLEDs[ch].length!==10)||Object.keys(components).length!==27||terminals.size!==194||rows.length===0)throw Error('3D component inventory mismatch');
+updateDemo();visibility();updateWires();
+window.modelInfo=Object.freeze({components:Object.keys(components).length,ledBars:3,drivers:3,pico:1,ledPins:60,driverPins:54,terminals:terminals.size,connectionRows:rows.length,wires:wires.length,source:'hardware/connections.csv'});
+$('status').textContent='27部品・3系統 / Rev C接続表に対応';
+renderer.setAnimationLoop(time=>{if(playing)$('explode').value=String(50*(1-Math.cos((time-start)*.00065+phase)));const f=Number($('explode').value)/100;
+ if(f!==lastExplosion){const e=f*f*(3-2*f);for(const c of Object.values(components))c.g.position.y=c.base+c.lift*e;updateWires();lastExplosion=f;}$('amount').value=Math.round(f*100)+'%';
+ camera.position.set(target.x+radius*Math.sin(phi)*Math.sin(theta),target.y+radius*Math.cos(phi),target.z+radius*Math.sin(phi)*Math.cos(theta));camera.lookAt(target);renderer.render(scene,camera);});
+}catch(error){document.getElementById('error').style.display='block';document.getElementById('status').textContent='3D初期化エラー';console.error(error);}
+</script>
+</html>
