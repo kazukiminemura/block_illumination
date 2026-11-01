@@ -1,0 +1,144 @@
+{
+  "revision": "B",
+  "savedAt": "2026-11-01T01:12:32.550Z",
+  "status": "prototype; hardware timing and thermal verification required",
+  "accepted": {
+    "fullScan": true,
+    "fullColumnLoad": true,
+    "defaultBlank": true,
+    "handoff100us": true
+  },
+  "rejected": {
+    "handoff10us": true
+  },
+  "files": [
+    {
+      "path": "../connections.csv",
+      "sha256": "5656ed4d7d3c3c4fbfaad1474b322cbd0971ae29f6b718a50c254c725cf5a261"
+    },
+    {
+      "path": "assembly-connections.csv",
+      "sha256": "0e5d85cd1c26f6f40737e4dd52b2a8d19d3f8cf84257e7da365f5917459af4dd"
+    },
+    {
+      "path": "bom.csv",
+      "sha256": "7a6ed87e1d90cb63e979543012a3a8d3ba44da37eaca366db77ae6a2ce5e5ec7"
+    },
+    {
+      "path": "full_circuit.asc",
+      "sha256": "b095fbe27f2aa95ee56757ee6d4c63c21d124bf4216af2d3dd96a52a366af33e"
+    },
+    {
+      "path": "full_circuit.cir",
+      "sha256": "7f0b5a102d5c2df716250b65c63a6bd42f72c63b03f232d2233fe87ab7854b35"
+    },
+    {
+      "path": "full_load.cir",
+      "sha256": "cf7ab1a4e5af1bdd7fb8b6c53109bb05a5d36e4efb99d98832a2435b73db3cf6"
+    },
+    {
+      "path": "row_handoff.asc",
+      "sha256": "403b363184cb42d5bed17a704a0b7f6d45cd43e70bfc2bbbb90c0021daa4c9d6"
+    },
+    {
+      "path": "row_handoff.cir",
+      "sha256": "43069350c08e9335f134f149e13ca57834a6cc1103bfa82c9f006d562edd4ffc"
+    },
+    {
+      "path": "startup.cir",
+      "sha256": "27a7d3233137e7d7c00a3b5472b1498de861c961efac1dc2bdae6c564b7dbed9"
+    },
+    {
+      "path": "full_models.lib",
+      "sha256": "9424efd6cbe68fa87747f18d12ff45d6e8951cdc13f5651f9197d770a433925c"
+    },
+    {
+      "path": "AHCT125_FUNC.asy",
+      "sha256": "ae450327f9d12d8a62c3e46885f110eabd26ae411b4e41498c8a8cea1988147b"
+    },
+    {
+      "path": "gpio_BLANK_G.pwl",
+      "sha256": "59866974519c5f34de8eebc552522ee23572c463e3080fe131c5e6cde32628d0"
+    },
+    {
+      "path": "gpio_BLANK_R.pwl",
+      "sha256": "59866974519c5f34de8eebc552522ee23572c463e3080fe131c5e6cde32628d0"
+    },
+    {
+      "path": "gpio_DATA_G.pwl",
+      "sha256": "ac56c467bd777784b7f46be75e4d1ad531b4428f722d414f27f6380cd216615d"
+    },
+    {
+      "path": "gpio_DATA_R.pwl",
+      "sha256": "8cde43113b0d8a818aa596f48dbf76e5b5d4432cd9810e9f165b017880904a74"
+    },
+    {
+      "path": "gpio_LAT_G.pwl",
+      "sha256": "bb6d7eb095fc45376708d99e19d5cedb6d5daa4044c39d302bda5cd4fb94d68b"
+    },
+    {
+      "path": "gpio_LAT_R.pwl",
+      "sha256": "bb6d7eb095fc45376708d99e19d5cedb6d5daa4044c39d302bda5cd4fb94d68b"
+    },
+    {
+      "path": "gpio_SCLK_G.pwl",
+      "sha256": "099e1e3836dbacf989173f482e70121b6c1d467fd298d1bf4715b2adac35eb80"
+    },
+    {
+      "path": "gpio_SCLK_R.pwl",
+      "sha256": "e37b8ad5080c58eb888eb5a29313fdc4d6b5728067b510eae44421fee34fadc7"
+    },
+    {
+      "path": "HC595_FUNC.asy",
+      "sha256": "2b5dcf8da0cb1d519e7fddfb76b539ce3e5e12ec95e7a5584dcebc71ffa10cea"
+    },
+    {
+      "path": "MATRIX16X16_RG.asy",
+      "sha256": "0ee8ef4ad85b43046515237b50df7c36ac0b3fc7fff6632312f94d4b58156485"
+    },
+    {
+      "path": "PICO_STIM.asy",
+      "sha256": "b4fb2c2efe3a2c2b1e6a6cd387a58c33298f5d06a190c90b89fed72c519df34f"
+    },
+    {
+      "path": "TLC5928_FUNC.asy",
+      "sha256": "170b35e21ebf7beb0cba383ea4121645e0370a059c3d784e044d97cc92844cfd"
+    },
+    {
+      "path": "ULN2803_FUNC.asy",
+      "sha256": "d33deeea09fee4660acc19eb485e3957b947d51710ec07de560da66884a113b5"
+    },
+    {
+      "path": "full_circuit.log",
+      "sha256": "658041e5a60161a9eb6548e28515ed56de55be22264f9764beabfe6a8a915f40"
+    },
+    {
+      "path": "full_load.log",
+      "sha256": "beff951cd53327e4b3f6ef9caf1e435962d2b0817ca17872f1cb599e67ade3ee"
+    },
+    {
+      "path": "row_handoff.log",
+      "sha256": "baec150fac26292431baa7fdd7795083696fa57675f0642d47a25f8feab01bb7"
+    },
+    {
+      "path": "startup.log",
+      "sha256": "cd24c8e5dd953f41bdb2e7e3abe836fb204deaf08d3c0689466dced3694ee3f9"
+    },
+    {
+      "path": "full-results.json",
+      "sha256": "579414278f8a681c9250f2684412d5ad345808057f07e3ab9606c167d33fbb1d"
+    },
+    {
+      "path": "full-load-results.json",
+      "sha256": "eb02563800e8364f105ed326466cbbc200ab1b9b15eb68a3cbd5d23094ec451e"
+    },
+    {
+      "path": "results.json",
+      "sha256": "4b309c6b41fba9d0d48549b9606ba7d257405c80a5b27da7aed338deff4ed546"
+    },
+    {
+      "path": "startup-results.json",
+      "sha256": "23f747f454798b0378df70b9d74a5096c946e77df71c41dd70a783d501e85519"
+    }
+  ]
+}

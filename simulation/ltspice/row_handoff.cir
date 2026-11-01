@@ -26,7 +26,7 @@ D1R ANODE1 KR LED_RED 48
 D1G ANODE1 KG LED_GREEN 48
 BRED KR 0 I=if(V(BLANK)<2.5,48*ILED*limit(V(KR)/0.4,0,1),0)
 BGREEN KG 0 I=if(V(BLANK)<2.5,48*ILED*limit(V(KG)/0.4,0,1),0)
-.param ILED=1.2*42/3300
+.param ILED=1.2*42/10000
 .step param TGUARD list 10u 100u
 .step param CGATE list 1n 4n
 * Explicit assumption models, NOT vendor AO3401A / ULN / TLC macro models.

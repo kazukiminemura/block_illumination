@@ -26,7 +26,7 @@ for(let y=0;y<2;y++){
 add('bi','BRED',['KR','0'],'I=if(V(BLANK)<2.5,48*ILED*limit(V(KR)/0.4,0,1),0)',2112,480);
 add('bi','BGREEN',['KG','0'],'I=if(V(BLANK)<2.5,48*ILED*limit(V(KG)/0.4,0,1),0)',2112,900);
 const directives=[
- '.param ILED=1.2*42/3300',
+ '.param ILED=1.2*42/10000',
  '.step param TGUARD list 10u 100u',
  '.step param CGATE list 1n 4n',
  '* Explicit assumption models, NOT vendor AO3401A / ULN / TLC macro models.',
@@ -52,7 +52,7 @@ const net=['Adjacent-row electrical test, 48 columns/color, behavioral TLC outpu
 fs.writeFileSync(path.join(dir,'row_handoff.cir'),net.join('\n')+'\n','ascii');
 const offsets={voltage:[[0,16],[0,96]],res:[[16,16],[16,96]],cap:[[16,0],[16,64]],sw:[[0,16],[0,96],[-48,80],[-48,32]],pmos:[[48,0],[0,80],[48,96]],diode:[[16,0],[16,64]],bi:[[0,0],[0,80]]};
 const asc=['Version 4.1','SHEET 1 3000 2050'];
-asc.push('TEXT 32 24 Left 3 ;BLOCK ILLUMINATION - LTspice electrical test Rev A',
+asc.push('TEXT 32 24 Left 3 ;BLOCK ILLUMINATION - LTspice electrical test Rev B / IREF=10k',
  'TEXT 32 72 Left 2 ;Two adjacent rows; each diode represents 48 matched columns. Named flags connect all terminals.',
  'TEXT 32 104 Left 2 ;PMOS/ULN/LED/TLC are ASSUMPTION MODELS. Digital row commands are prescribed stimuli, not IC emulation.',
  'TEXT 32 1376 Left 2 ;10k gate pull-up; ULN equivalent pulls to 0.8V. Sweep extra gate C=1n/4n and BLANK guard=10u/100u.',

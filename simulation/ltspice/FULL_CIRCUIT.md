@@ -1,51 +1,72 @@
-# 全体回路図
+# 全体回路 Rev B
 
-`full_circuit.asc` が全体版、`row_handoff.asc` が隣接2行の切替試験版。
+製作資料はimplementation.html、概要図はimplementation.svg、全体図はfull_circuit.svg、LTspice編集用はfull_circuit.ascです。
+全て同じ../connections.csvから生成します。元写真そのままの復元ではありません。
 
-全体版は `connections.csv` に定義した接続を共通入力として生成した。110個のトップレベル部品を配置し、同じネット名の端子を全て接続する。`full_circuit.svg` は同じ部品・端子・ネットから生成した閲覧用ベクター図。小さい文字は拡大して確認する。
+## 実端子
 
-|回路部分|全体版の内容|
-|---|---|
-|Pico|8本のGPIOと3.3V。USB通信・MCU内部はシリアル波形源に置換|
-|3.3V→5V|AHCT125機能モデル×2、8出力、/OE・電源・プル抵抗も接続|
-|赤の列|TLC5928機能モデルR1/R2/R3、合計48定電流出力|
-|緑の列|TLC5928機能モデルG1/G2/G3、合計48定電流出力|
-|行データ|74HC595機能モデル×2、16bitのシフトとラッチ|
-|ゲート駆動|ULN2803A等価モデル×2、全16出力|
-|行電源|P-MOS×16、各100Ω・10kΩ・追加4nF|
-|LED|16×16×2色のサブ回路×3。内部に赤768個・緑768個を個別に配置|
-|電源|5V、配線抵抗0.1Ω、1000µF、各ロジックICの100nF|
+- LT-5016M1：前面上端Row1をA0、下端Row16をA15と定義。行アノードはpin16→1、赤列は17→32、黄緑列は33→48。販売元配布LT5016_pin.pdfの内部接続と照合済み。裏面配置は前面と左右が反転します。
+- AO3401A：SOT-23、1=G、2=S、3=Dを採用。原写真のMOSを特定したわけではありません。
+- 2N3904：onsemi TO-92、1=E、2=B、3=C。
+- TLC5928PWはTSSOP-24、SN74HC595NとSN74AHCT125NはDIP、ULN2803AはST DIP-18。
+- Picoの物理ヘッダー端子はassembly-connections.csv、GPIO名は../connections.csv。
 
-## 開く
+## Rev B変更
 
-このディレクトリ全体を同じ場所に置き、LTspiceで `full_circuit.asc` を開く。6個の独自 `.asy`、`full_models.lib`、8個の `gpio_*.pwl` が必要。`full_circuit.cir` でも同じ接続を実行できる。
+IREFは6個とも10kΩ±1%、LED電流5.04mA typ。初回試作の電流・発熱を抑える設計選択です。旧3.3kΩ版の解析値は使用しません。
 
-Runで16.2ms、全16行の市松模様走査を解析する。理想シリアル機能モデルと1536経路のLED・行ドライバを同時に動かす。`ROW0_CTL`〜`ROW15_CTL` は各行中央時点でその行が選択されるか、`ROW0_CURRENT`〜`ROW15_CURRENT` は同じ時点の行電源電流、`ROW0_COUNT`〜`ROW15_COUNT` は同時に選択された行数を測定する。市松模様では1行48個の色LEDがONとなり、LED分は約0.733A。
+GP10 RUN_EN、2N3904、4.7kΩ/100kΩ/10kΩでAHCT125の/OEを制御します。
+GPIOが未接続・リセットならバッファを無効化し、5V側BLANKプルアップで消灯。
+他6出力に10kΩプルダウン。5VをPico GPIOへ直接接続しません。
 
-`VLED_SENSE` は5VとP-MOSソース電源5V_LEDの間に入れた0V電流計。両ノードは電気的に同電位。5V入力のI(VDD)はバルクコンデンサの充放電も含むため、LED電流の判定には使用しない。
+PicoはUSB給電、外部5VのVBUS直結は禁止、GND共通。逆給電を含む全電源シーケンスの実測評価は別途必要です。
 
-測定結果はSPICE Error Logで確認する。`node simulation/ltspice/verify-full.cjs` はログから16行の電圧と電流を取り出して `full-results.json` に保存し、欠損・不合格時にエラー終了する。100µsの消灯待ちを使用する。
+## LTspice検証
 
-## 実行確認
+- full_circuit.asc：16行・3パネル・1536色LED経路、シリアルチェーン、1フレーム16.2ms、市松模様。
+- full_load.cir：FLOOD=1で全96列シンクを強制ON、行は通常シリアル走査。最大列負荷の試験であり、全点灯データのシリアル転送試験ではありません。
+- row_handoff.asc：隣接2行・各色48列、消灯待ち10/100us、追加ゲート容量1/4nFの4条件。不合格の10usも記録。
+- startup.cir：5V定常時のPico未接続・リセット・有効化・表示中・表示後リセットの5ケース。900us時点のBLANKを評価。
 
-LTspice 26.1.1で全16行・16.2msの過渡解析が完了した。各行中央の16測定点で、対象行の選択電圧5V・同時選択行数1を確認。LED電源電流は0.73253〜0.73335A、解析区間内の5V電源最低値は4.92675V。`verify-full.cjs` の全16行の判定はPASS。これは市松模様・同梱の仮定モデルでの結果であり、各画素の実測輝度や実部品の動作保証ではない。
+生成：
 
-## 端子とモデルの限界
-
-TLC5928はPW/TSSOP-24、595・AHCT125・ULNは前版接続表のピン配置。独自シンボルに表示する数字はこの接続表と一致する。LEDのA/R/Gに付けた*印は機能端子であり、LT-5016M1の実端子番号ではない。P-MOSも型番未確定のためD/G/Sで表示する。
-
-TLC/595はLTspiceのDFLOPで正常なシフト・ラッチ動作を近似する。TLC5928のLAT後の診断データ上書き、LOD/PTW、電源投入時の不定値、IC固有のセットアップ/ホールド/電流消費は再現しない。本版の刺激はLATを転送ごとに1回だけ上げる。AHCTはTTLしきい値と出力抵抗の簡易モデル、ULN・P-MOS・LEDも仮定モデル。595の/OEは未使用条件（GND固定）を対象とし、Hi-Z出力は再現しない。
-
-このため全体シミュレーションは「接続・ビット順・正常走査・仮定負荷」の確認であり、元写真の完全復元、実部品のタイミング保証、発熱検証、製造可能な端子確定図ではない。
-
-## 再生成
-
-プロジェクト直下で順に実行する。
-
-```powershell
+~~~powershell
 node simulation/build.cjs
 node simulation/test.cjs
 node simulation/ltspice/build-full.cjs
-```
+node simulation/ltspice/build.cjs
+node simulation/ltspice/build-implementation.cjs
+~~~
 
-`scan.vcd` のシリアル波形をGPIO用PWLに変換しているため、データパターンやタイミング変更時は波形も再生成する。モデルは全て同梱する。PC側のCPU/GPU/NPU使用率取得はこの回路図の対象外。
+LTspiceで各回路を開きRun。ログの更新を確認後：
+
+~~~powershell
+node simulation/ltspice/verify-netlist.cjs
+node simulation/ltspice/verify-full.cjs
+node simulation/ltspice/verify-full.cjs --full-load
+node simulation/ltspice/verify.cjs
+node simulation/ltspice/verify-startup.cjs
+node simulation/ltspice/build-implementation.cjs
+~~~
+
+verify-netlist.cjsはASCから実際に生成された.netとCIRの全120部品の端子リストを比較し、作図の線重なりによる短絡も検出します。
+.net/.rawは再生成可能な中間ファイル。バッチ実行がログを更新しない環境ではGUIから実行してください。
+
+## モデルと判定の限界
+
+TLC/595はDFLOPによる機能近似。TLCの診断データ上書き・LOD/PTW、IC固有遅延、電源投入時の未知状態を完全再現しません。
+補助論理試験は未知ラッチとLAT再入力による破損を別に確認します。転送後LATは各1回のみ。
+
+AHCTのTTL判定・出力抵抗、ULNのLow=0.8V/Ron=20Ω、MOS、LED、QENは仮定モデル。
+メーカー提供モデルによるスイッチング保証ではありません。追加4nFは試験負荷で、実装BOMに含めません。
+
+100usはこのモデルで選んだ待機時間です。実機でゲート・旧行電流・電源を測定し調整してください。
+1ms/行、785us点灯、62.5Hz、LED平均電流約0.247mA。明るさ・ちらつきの実用性は未評価です。
+
+全96列電流は約0.484A（ロジック消費除外）。
+TLCは全行にわたり使用されるので損失に1/16を掛けません。
+Vf=0とする出力段の上限概算は0.317W/IC（VCC消費除外）。
+接合温度、基板放熱、周囲温度、配線降下、部品公差、異常多重行、走査停止は実機評価対象。
+現状は試作資料であり量産承認済みではありません。
+
+資料URLと部品ごとの接続はimplementation.htmlに記載しています。

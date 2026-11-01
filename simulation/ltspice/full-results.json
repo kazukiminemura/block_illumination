@@ -1,14 +1,14 @@
 {
   "simulator": "LTspice 26.1.1 for Windows",
   "scope": "Full functional serial-chain model, 16 rows, 3 panels, 1536 color diodes; checkerboard input; assumed analog component models",
-  "supplyMin_V": 4.92675113678,
+  "supplyMin_V": 4.97568368912,
   "rows": [
     {
       "row": 0,
       "sample_ms": 0.5,
       "selected_V": 5,
       "selectedRows": 1,
-      "ledRail_A": 0.733226788851,
+      "ledRail_A": 0.242276685606,
       "pass": true
     },
     {
@@ -16,7 +16,7 @@
       "sample_ms": 1.5,
       "selected_V": 5,
       "selectedRows": 1,
-      "ledRail_A": 0.733165695418,
+      "ledRail_A": 0.24205995025,
       "pass": true
     },
     {
@@ -24,7 +24,7 @@
       "sample_ms": 2.5,
       "selected_V": 5,
       "selectedRows": 1,
-      "ledRail_A": 0.733352444816,
+      "ledRail_A": 0.241746290816,
       "pass": true
     },
     {
@@ -32,7 +32,7 @@
       "sample_ms": 3.5,
       "selected_V": 5,
       "selectedRows": 1,
-      "ledRail_A": 0.733172390199,
+      "ledRail_A": 0.24188324931,
       "pass": true
     },
     {
@@ -40,7 +40,7 @@
       "sample_ms": 4.5,
       "selected_V": 5,
       "selectedRows": 1,
-      "ledRail_A": 0.733041343132,
+      "ledRail_A": 0.241909167021,
       "pass": true
     },
     {
@@ -48,7 +48,7 @@
       "sample_ms": 5.5,
       "selected_V": 5,
       "selectedRows": 1,
-      "ledRail_A": 0.733062432963,
+      "ledRail_A": 0.241903059673,
       "pass": true
     },
     {
@@ -56,7 +56,7 @@
       "sample_ms": 6.5,
       "selected_V": 5,
       "selectedRows": 1,
-      "ledRail_A": 0.733172665646,
+      "ledRail_A": 0.241924615523,
       "pass": true
     },
     {
@@ -64,7 +64,7 @@
       "sample_ms": 7.5,
       "selected_V": 5,
       "selectedRows": 1,
-      "ledRail_A": 0.7332053379,
+      "ledRail_A": 0.24191913191,
       "pass": true
     },
     {
@@ -72,7 +72,7 @@
       "sample_ms": 8.5,
       "selected_V": 5,
       "selectedRows": 1,
-      "ledRail_A": 0.733320656604,
+      "ledRail_A": 0.241929410456,
       "pass": true
     },
     {
@@ -80,7 +80,7 @@
       "sample_ms": 9.5,
       "selected_V": 5,
       "selectedRows": 1,
-      "ledRail_A": 0.733353455916,
+      "ledRail_A": 0.241973671956,
       "pass": true
     },
     {
@@ -88,7 +88,7 @@
       "sample_ms": 10.5,
       "selected_V": 5,
       "selectedRows": 1,
-      "ledRail_A": 0.733127606388,
+      "ledRail_A": 0.242046413564,
       "pass": true
     },
     {
@@ -96,7 +96,7 @@
       "sample_ms": 11.5,
       "selected_V": 5,
       "selectedRows": 1,
-      "ledRail_A": 0.732916342265,
+      "ledRail_A": 0.242128741707,
       "pass": true
     },
     {
@@ -104,7 +104,7 @@
       "sample_ms": 12.5,
       "selected_V": 5,
       "selectedRows": 1,
-      "ledRail_A": 0.732734726453,
+      "ledRail_A": 0.242022815431,
       "pass": true
     },
     {
@@ -112,7 +112,7 @@
       "sample_ms": 13.5,
       "selected_V": 5,
       "selectedRows": 1,
-      "ledRail_A": 0.732602445235,
+      "ledRail_A": 0.241953511761,
       "pass": true
     },
     {
@@ -120,7 +120,7 @@
       "sample_ms": 14.5,
       "selected_V": 5,
       "selectedRows": 1,
-      "ledRail_A": 0.7325321859,
+      "ledRail_A": 0.2419169114,
       "pass": true
     },
     {
@@ -128,7 +128,7 @@
       "sample_ms": 15.5,
       "selected_V": 5,
       "selectedRows": 1,
-      "ledRail_A": 0.732785362248,
+      "ledRail_A": 0.241909677881,
       "pass": true
     }
   ],

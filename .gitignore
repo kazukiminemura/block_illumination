@@ -1,0 +1,5 @@
+/tmp/
+/simulation/ltspice/*.raw
+/simulation/ltspice/*.net
+/simulation/ltspice/*.op.raw
+/simulation/ltspice/*.zip

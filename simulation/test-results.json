@@ -4,7 +4,7 @@
   "patterns": 7,
   "rowPeriod_us": 1000,
   "frameRate_Hz": 62.5,
-  "ledPeak_mA": 15.272727272727273,
-  "maxLedRail_A": 1.466181818181818,
+  "ledPeak_mA": 5.04,
+  "maxLedRail_A": 0.48383999999999994,
   "scope": "Ideal logical model; not SPICE, firmware emulation, timing sign-off or thermal validation"
 }

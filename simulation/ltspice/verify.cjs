@@ -17,7 +17,7 @@ for(const key of ['led_steady','blank_leak','ghost_old','new_row','rail_min','pm
   assert.ok(measurements[key].every(Number.isFinite));
 }
 const steps=[{guard_us:10,extraGate_nF:1},{guard_us:100,extraGate_nF:1},{guard_us:10,extraGate_nF:4},{guard_us:100,extraGate_nF:4}];
-const current=96*1.2*42/3300;
+const current=96*1.2*42/10000;
 const results=steps.map((step,i)=>{
   const r={...step};for(const [name,values] of Object.entries(measurements))r[name]=values[i];
   // Requirements for this assumption model, not manufacturer guaranteed limits.

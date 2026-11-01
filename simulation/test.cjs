@@ -69,6 +69,6 @@ for(let y=0;y<16;y++) {
 m.blank(1);emit({BLANK_R:1,BLANK_G:1});
 const header=['$date 2026-10-31 $end','$version block_illumination functional simulation $end','$timescale 1 ns $end','$scope module display $end',...names.map((n,i)=>`$var wire ${n==='ROW_MASK'?16:1} ${ids[i]} ${n} $end`),'$upscope $end','$enddefinitions $end'];
 fs.writeFileSync(path.join(__dirname,'scan.vcd'),header.concat(events).join('\n')+'\n');
-const report={passed:checks,individualColorPaths:1536,patterns:7,rowPeriod_us:1000,frameRate_Hz:62.5,ledPeak_mA:1.2/3.3*42,maxLedRail_A:96*1.2/3300*42,scope:'Ideal logical model; not SPICE, firmware emulation, timing sign-off or thermal validation'};
+const report={passed:checks,individualColorPaths:1536,patterns:7,rowPeriod_us:1000,frameRate_Hz:62.5,ledPeak_mA:1.2/10*42,maxLedRail_A:96*1.2/10000*42,scope:'Ideal logical model; not SPICE, firmware emulation, timing sign-off or thermal validation'};
 fs.writeFileSync(path.join(__dirname,'test-results.json'),JSON.stringify(report,null,2)+'\n');
 console.log(JSON.stringify(report));

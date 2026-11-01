@@ -21,9 +21,10 @@ const bufnames=['1OE_N','1A','1Y','2OE_N','2A','2Y','GND','3Y','3A','3OE_N','4Y'
 symbol('AHCT125_FUNC',named(range(14,1),bufnames),['2','1','5','4','9','10','12','13','14','7'],['3','6','8','11'],'AHCT125_FUNC');
 symbol('ULN2803_FUNC',named(range(18,1),[...range(8).map(i=>'IN'+i),'GND','COM',...range(8).map(i=>'OUT'+(7-i))]),[...range(8,1).map(String),'9','10'],range(8).map(i=>String(18-i)),'ULN2803_FUNC');
 const ledpins=[...range(16).map(i=>'A'+i),...range(16).map(i=>'R'+i),...range(16).map(i=>'G'+i)];
-symbol('MATRIX16X16_RG',ledpins.map(id=>({id,label:id+'*'})),ledpins.slice(0,16),ledpins.slice(16),'MATRIX16X16_RG');
-const gp=[...range(8,2).map(i=>'GP'+i),'3V3_OUT','GND'];
-symbol('PICO_STIM',gp.map(id=>({id,label:id})),['3V3_OUT','GND'],gp.slice(0,8),'PICO_STIM');
+const ledPhysical=[...range(16).map(i=>16-i),...range(16,17),...range(16,33)].map(String);
+symbol('MATRIX16X16_RG',ledPhysical.map((id,i)=>({id,label:ledpins[i]})),ledPhysical.slice(0,16),ledPhysical.slice(16),'MATRIX16X16_RG');
+const gp=[...range(9,2).map(i=>'GP'+i),'3V3_OUT','GND'];
+symbol('PICO_STIM',gp.map(id=>({id,label:id})),['3V3_OUT','GND'],gp.slice(0,9),'PICO_STIM');
 
 // Generate GPIO voltage stimuli from the already checked serial simulation waveform.
 const vcd=fs.readFileSync(path.join(dir,'../scan.vcd'),'utf8').split(/\r?\n/),idNames={},waves={};let t=0;
@@ -41,10 +42,11 @@ const lib=['* Functional approximation models, not vendor macro models. See FULL
  '.model PMOS_FULL VDMOS(pchan Vto=-1 Kp=20 Rd=0.025 Rs=0.025 Cgs=1n Cgdmax=300p Cgdmin=50p Cjo=100p Is=1n)',
  '.model ULN_FULL_SW SW(Ron=20 Roff=1G Vt=2.5 Vh=-0.1)',
  '.model RED_FULL D(Is=1e-18 N=2 Rs=2 Cjo=10p)',
- '.model GREEN_FULL D(Is=1e-23 N=2 Rs=3 Cjo=10p)'];
+ '.model GREEN_FULL D(Is=1e-23 N=2 Rs=3 Cjo=10p)',
+ '.model EN_NPN NPN(Is=1e-14 Bf=100 Vaf=100 Cje=10p Cjc=4p)'];
 function sub(name,pins,lines){lib.push('.subckt '+name+' '+pins.join(' '),...lines,'.ends '+name);}
 const gpSigs=['DATA_R','SCLK_R','LAT_R','BLANK_R','DATA_G','SCLK_G','LAT_G','BLANK_G'];
-sub('PICO_STIM',gp,[...gpSigs.map((s,i)=>`VGP${i+2} GP${i+2} GND PWL FILE="gpio_${s}.pwl"`),'V3V3 3V3_OUT GND 3.3']);
+sub('PICO_STIM',gp,[...gpSigs.map((s,i)=>`VGP${i+2} GP${i+2} GND PWL FILE="gpio_${s}.pwl"`),'VEN GP10 GND 3.3','V3V3 3V3_OUT GND 3.3']);
 const pn=n=>range(n,1).map(i=>'P'+i);
 sub('AHCT125_FUNC',pn(14),[[2,3,1],[5,6,4],[9,8,10],[12,11,13]].flatMap(([a,y,oe],i)=>[
  `B${i} Y${i} P7 V=if(V(P${a},P7)>2, V(P14,P7), 0)`,
@@ -58,7 +60,7 @@ function flops(n,sin,clk,lat,clr,gnd){return range(n).flatMap(i=>[
 sub('TLC5928_FUNC',pn(24),[
  ...flops(16,'P2','P3','P4','P1','P1'),
  'ESOUT P22 P1 SH15 P1 1','VREF P23 P1 1.2',
- ...range(16).map(i=>`BOUT${i} P${i+5} P1 I=if(V(P21,P1)>2.5,0,if(V(L${i},P1)>2.5,-42*I(VREF)*limit(V(P${i+5},P1)/0.4,0,1),0))`),
+ ...range(16).map(i=>`BOUT${i} P${i+5} P1 I=if(V(P21,P1)>2.5,0,if((V(L${i},P1)>2.5)+(FLOOD>0),-42*I(VREF)*limit(V(P${i+5},P1)/0.4,0,1),0))`),
 ]);
 sub('HC595_FUNC',pn(16),[
  'BCLR CLR P8 V=if(V(P10,P8)<2.5,5,0)',...flops(8,'P14','P11','P12','CLR','P8'),
@@ -81,11 +83,14 @@ for(const [ref,entries]of refs){
   if(/^ROW[12]$/.test(ref)){chip('HC595_FUNC',1024+(Number(ref[3])-1)*1216,3808);continue;}
   if(/^ULN[12]$/.test(ref)){chip('ULN2803_FUNC',1024+(Number(ref[3])-1)*1216,4384);continue;}
   if(/^LED[123]$/.test(ref)){chip('MATRIX16X16_RG',1024+(Number(ref[3])-1)*1216,2368);continue;}
+  if(ref==='QEN'){add('npn','QEN',[map.get('3'),map.get('2'),map.get('1')],'EN_NPN',4736,256);continue;}
+  if(['REN','REN_PD','ROE'].includes(ref)){const i=['REN','REN_PD','ROE'].indexOf(ref);add('res',ref,numPins(ref).map(e=>e.net),ref==='REN'?'4.7k':ref==='REN_PD'?'100k':'10k',4736,512+i*256);continue;}
+  if(ref.startsWith('RY_')){const i=gpSigs.filter(s=>!s.startsWith('BLANK')).indexOf(ref.slice(3));add('res',ref,numPins(ref).map(e=>e.net),'10k',4736,1280+i*256);continue;}
   if(/^Q\d+$/.test(ref)){
     const i=Number(ref.slice(1)),x=64+(i%8)*608,y=5056+(i/8|0)*640;
-    add('pmos','M'+ref,[map.get('D'),map.get('G'),'5V_LED'],'PMOS_FULL',x+256,y);
+    add('pmos','M'+ref,[map.get('3'),map.get('1'),'5V_LED'],'PMOS_FULL',x+256,y);
     // Additional capacitance matches the conservative 4 nF handoff test.
-    add('cap','CG_EXTRA'+i,[map.get('G'),map.get('S')],'4n',x+448,y+176);continue;
+    add('cap','CG_EXTRA'+i,[map.get('1'),map.get('2')],'4n',x+448,y+176);continue;
   }
   if(ref==='J_PWR'){add('voltage','VDD',['V_IN','0'],'5',64,128);add('res','RFEED',['V_IN','5V'],'0.1',320,128);add('voltage','VLED_SENSE',['5V','5V_LED'],'0',800,128);continue;}
   if(ref.startsWith('C_')){const i=['BUF1','BUF2','R1','R2','R3','G1','G2','G3','ROW1','ROW2'].indexOf(ref.slice(2));add('cap',ref,numPins(ref).map(e=>e.net),'100n',64+i*448,6688);continue;}
@@ -94,12 +99,12 @@ for(const [ref,entries]of refs){
     const i=Number(ref.match(/\d+$/)[0]),x=64+(i%8)*608,y=5056+(i/8|0)*640;
     add('res',ref,numPins(ref).map(e=>e.net),ref.startsWith('RGS')?'10k':'100',x+(ref.startsWith('RGS')?256:0),y+256);continue;
   }
-  if(ref.startsWith('RI_')){const z=ref.slice(3),x=1024+(Number(z[1])-1)*1216,y=z[0]==='R'?960:1920;add('res',ref,numPins(ref).map(e=>e.net),'3.3k',x+64,y);continue;}
+  if(ref.startsWith('RI_')){const z=ref.slice(3),x=1024+(Number(z[1])-1)*1216,y=z[0]==='R'?960:1920;add('res',ref,numPins(ref).map(e=>e.net),'10k',x+64,y);continue;}
   if(/^RP\d$/.test(ref)){const i=Number(ref.slice(2));add('res',ref,numPins(ref).map(e=>e.net),'10k',64+(i%4)*224,2144+(i/4|0)*256);continue;}
   if(ref.startsWith('R_BLANK')){add('res',ref,numPins(ref).map(e=>e.net),'10k',64,ref.endsWith('_R')?2880:3200);continue;}
   throw new Error('Unmapped component '+ref);
 }
-const directives=['.include full_models.lib','.tran 0 16.2m 0 500n','.options plotwinsize=0',
+const directives=['.param FLOOD=0','.include full_models.lib','.tran 0 16.2m 0 500n','.options plotwinsize=0',
  '.save V(5V) V(BLANK_R) V(LAT_R) V(SCLK_R) V(DATA_R) '+range(16).map(i=>`V(ROW_CTL_${i})`).join(' ')+' V(A_ROW_0) V(A_ROW_1) V(GATE_0) V(GATE_1) I(VDD) I(VLED_SENSE)',
  '.meas tran SUPPLY_MIN MIN V(5V) FROM 500u TO 15.8m',
  ...range(16).map(y=>`.meas tran ROW${y}_CTL FIND V(ROW_CTL_${y}) AT=${y+0.5}m`),
@@ -107,10 +112,11 @@ const directives=['.include full_models.lib','.tran 0 16.2m 0 500n','.options pl
  ...range(16).map(y=>`.meas tran ROW${y}_COUNT FIND (${range(16).map(i=>`if(V(ROW_CTL_${i})>2.5,1,0)`).join('+')}) AT=${y+0.5}m`),
 ];
 fs.writeFileSync(path.join(dir,'full_circuit.cir'),['Full 3-panel LED circuit, functional serial models and assumed analog models',...c.map(o=>`${o.name} ${o.nodes.join(' ')} ${o.value}${o.extra?' '+o.extra:''}`),...directives,'.end'].join('\n')+'\n','ascii');
-const offsets={voltage:[[0,16],[0,96]],res:[[16,16],[16,96]],cap:[[16,0],[16,64]],pmos:[[48,0],[0,80],[48,96]]};
+fs.writeFileSync(path.join(dir,'full_load.cir'),fs.readFileSync(path.join(dir,'full_circuit.cir'),'utf8').replace('.param FLOOD=0','.param FLOOD=1'),'ascii');
+const offsets={voltage:[[0,16],[0,96]],res:[[16,16],[16,96]],cap:[[16,0],[16,64]],pmos:[[48,0],[0,80],[48,96]],npn:[[64,0],[0,48],[64,96]]};
 const asc=['Version 4.1','SHEET 1 5400 7900',
  'TEXT 64 -96 Left 4 ;FULL CIRCUIT - 3 x 16x16 RED/GREEN - FUNCTIONAL LTspice MODEL',
- 'TEXT 64 -32 Left 2 ;ALL equal net labels are connected. IC pin numbers are physical PW/DIP mapping; LED A/R/G and MOSFET G/S/D are functional terminals.',
+ 'TEXT 64 -32 Left 2 ;Rev B: physical LT-5016M1 pins / AO3401A 1=G 2=S 3=D / IREF=10k. Added default-disabled buffers, GP10 RUN_EN.',
  'TEXT 64 16 Left 2 ;MCU/USB replaced by serial stimuli. ICs use APPROXIMATE functional models.',
  'TEXT 1024 160 Left 3 ;RED column sinks R1 / R2 / R3 - 48 channels',
  'TEXT 1024 1120 Left 3 ;GREEN column sinks G1 / G2 / G3 - 48 channels',
@@ -136,7 +142,11 @@ const escape=s=>s.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>',
 let svg='<svg xmlns="http://www.w3.org/2000/svg" width="5400" height="7200" viewBox="-96 -200 5400 7200"><style>text{font-family:Consolas,Meiryo,monospace;font-size:18px;fill:#153245}.part{fill:#f6fbff;stroke:#244e68;stroke-width:2}.net{fill:none;stroke:#247e93;stroke-width:2}.heading{font-size:28px;font-weight:bold}.label{font-size:16px;fill:#186879}</style><rect x="-96" y="-200" width="5400" height="7200" fill="white"/>';
 const txt=(x,y,s,cl='')=>{svg+=`<text x="${x}" y="${y}" class="${cl}">${escape(s)}</text>`;};
 for(const line of asc.filter(s=>s.startsWith('TEXT ')&&s.includes(' ;'))){const m=line.match(/^TEXT (-?\d+) (-?\d+) Left \d ;(.*)$/);if(m)txt(Number(m[1]),Number(m[2]),m[3],'heading');}
-for(const o of c){const spec=symbols[o.symbol];
+for(const part of c){const o={...part};
+  // The vector view uses roomier label placement without changing ASC wiring.
+  if(/^RP\d$/.test(o.name)){const i=Number(o.name.slice(2));o.x=64+(i%2)*320;o.y=2048+(i/2|0)*176;}
+  if(o.name.startsWith('CG_EXTRA'))o.y+=288;
+  const spec=symbols[o.symbol];
   if(spec){svg+=`<rect class="part" x="${o.x+32}" y="${o.y}" width="384" height="${spec.h}" rx="4"/>`;txt(o.x+48,o.y-14,o.name+' / '+o.value);
     spec.pins.forEach((p,i)=>{const [dx,dy]=spec.loc.get(p.id),x=o.x+dx,y=o.y+dy,right=dx>0;
       svg+=`<path class="net" d="M ${x+(right?64:-64)} ${y} H ${x+(right?-32:32)}"/>`;
@@ -146,7 +156,7 @@ for(const o of c){const spec=symbols[o.symbol];
     // Terminal-labelled standard components; each net is exactly the ASC net.
     svg+=`<rect class="part" x="${o.x-8}" y="${o.y}" width="232" height="112" rx="4"/>`;
     txt(o.x+4,o.y+24,o.name);txt(o.x+4,o.y+48,o.value);
-    o.nodes.forEach((net,i)=>txt(o.x+4,o.y+72+i*18,(o.symbol==='pmos'?['D','G','S'][i]:(i+1))+': '+net,'label'));
+    o.nodes.forEach((net,i)=>txt(o.x+4,o.y+72+i*18,(o.symbol==='pmos'?['D (3)','G (1)','S (2)'][i]:o.symbol==='npn'?['C (3)','B (2)','E (1)'][i]:(i+1))+': '+net,'label'));
   }
 }
 svg+='</svg>';fs.writeFileSync(path.join(dir,'full_circuit.svg'),svg);

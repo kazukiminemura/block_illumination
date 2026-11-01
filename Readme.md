@@ -1,17 +1,18 @@
 # block_illumination
 
-添付写真を基にした、3枚の16×16・2色LED表示器の暫定回路設計と論理シミュレーション。
+Pico 2 HとLT-5016M1×3による48×16ドット・赤/黄緑LED表示器。
 
-電気特性の検証には **LTspice** を使用。最初に [LTspice回路図](simulation/ltspice/row_handoff.asc) と [検証条件・結果](simulation/ltspice/README.md) を参照。
+## Rev B 試作製作資料（2026-11-01）
 
-- [全体回路図（LTspice）](simulation/ltspice/full_circuit.asc) / [閲覧用SVG](simulation/ltspice/full_circuit.svg)
-- [全体版の構成・開き方・モデルの限界](simulation/ltspice/FULL_CIRCUIT.md)
+- [配線図・全端子表・部品表・検証記録](simulation/ltspice/implementation.html)
+- [試作配線図 SVG](simulation/ltspice/implementation.svg)
+- [全IC・全LED接続図 SVG](simulation/ltspice/full_circuit.svg)
+- [LTspice全体回路](simulation/ltspice/full_circuit.asc)
+- [物理端子番号付き接続 CSV](simulation/ltspice/assembly-connections.csv)
+- [部品表 CSV](simulation/ltspice/bom.csv)
+- [検証範囲と再現手順](simulation/ltspice/FULL_CIRCUIT.md)
 
-- [回路図と動作プレビュー](simulation/preview.html) — ブラウザーで開く
-- [回路図 SVG](simulation/schematic.svg)
-- [設計条件・接続・検証範囲](simulation/README.md)
-- [全端子接続表](simulation/connections.csv)
-
-検証: `node simulation/test.cjs`
-
-図面再生成: `node simulation/build.cjs`
+**Rev Bは試作版です。実部品の動作・温度を保証する量産確定図ではありません。**
+LED実端子、AO3401A、IREF=10kΩ（約5.04mA）、初期消灯用GP10と2N3904を具体化しました。
+元写真そのままの復元ではなく、試作向けに接続を定義し直した設計です。
+旧版Rev Aの3.3kΩ/15.27mA・8信号・未確定端子の説明はRev Bには適用しません。
