@@ -9,3 +9,5 @@ Drag to orbit; scroll to zoom. Use the explosion slider, channel selector, wirin
 Run node docs/3d/build.cjs after editing hardware/connections.csv. Run node docs/3d/build.cjs --check to check embedded netlist consistency, LED mapping, Pico supply separation and JavaScript syntax.
 
 Physical appearance includes axial resistor color bands, cylindrical electrolytic capacitors, IC sockets and markings, Pico headers, copper pads, mounting hardware and shadows. This is an explanatory prototype view; actual assembly should follow the hardware documentation.
+
+Build/check regression tests: `node docs/3d/test-build.cjs`. Missing or duplicate embedded connections scripts are rejected before writing the HTML.

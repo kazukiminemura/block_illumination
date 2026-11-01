@@ -22,7 +22,9 @@ for (const channel of ['CPU', 'GPU', 'NPU']) {
 assert(rows.filter(r => r.reference === 'PICO').every(r => r.net !== '5V'), 'External 5V must not reach Pico');
 const file = path.join(__dirname, 'index.html');
 const html = fs.readFileSync(file, 'utf8');
-const next = html.replace(/(<script id="connections" type="application\/json">)[\s\S]*?(<\/script>)/, (_, a, b) => a + JSON.stringify(rows) + b);
+const embedded = /(<script id="connections" type="application\/json">)[\s\S]*?(<\/script>)/g;
+assert.equal([...html.matchAll(embedded)].length, 1, 'Expected exactly one embedded connections script');
+const next = html.replace(embedded, (_, a, b) => a + JSON.stringify(rows) + b);
 const scripts = [...next.matchAll(/<script>([\s\S]*?)<\/script>/g)];
 assert.equal(scripts.length, 1);
 new vm.Script(scripts[0][1]);
